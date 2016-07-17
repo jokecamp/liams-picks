@@ -2,7 +2,7 @@
 var debug = require('debug')('liams');
 var chai = require('chai');
 var assert = chai.assert;
-var scoring = require('../lib/scoring.js');
+var scoring = require('../lib/scoring');
 describe('Scoring', function () {
     it('User does not have picks = 0 points', function () {
         var pick = null;

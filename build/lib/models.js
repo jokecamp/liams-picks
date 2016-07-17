@@ -1,13 +1,13 @@
 "use strict";
-var Picks = (function () {
-    function Picks() {
+var Pick = (function () {
+    function Pick() {
     }
-    return Picks;
+    return Pick;
 }());
-exports.Picks = Picks;
-var Resuts = (function () {
-    function Resuts() {
+exports.Pick = Pick;
+var Result = (function () {
+    function Result() {
     }
-    return Resuts;
+    return Result;
 }());
-exports.Resuts = Resuts;
+exports.Result = Result;

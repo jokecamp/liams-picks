@@ -1,11 +1,10 @@
 /// <reference path="../typings/globals/mocha/index.d.ts" />
 
-var debug = require('debug')('liams');
-var chai = require('chai');
-var assert = chai.assert;
+let debug = require('debug')('liams');
+let chai = require('chai');
+let assert = chai.assert;
 
-var scoring = require('../lib/scoring.js');
-
+import * as scoring from '../lib/scoring';
 import * as Models from '../lib/models';
 
 describe('Scoring', function() {

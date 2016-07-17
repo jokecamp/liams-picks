@@ -42,5 +42,7 @@ Manager can define rounds or weeks based on fixture list
     typings install dt~winston --global --save
     typings install dt~debug --global --save
 
+    typings install dt~lodash --global --save
+
 
 https://github.com/typings/typings

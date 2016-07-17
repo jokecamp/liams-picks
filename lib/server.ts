@@ -1,9 +1,9 @@
-var CONFIG = require('config');
-var logger = require('winston');
-
+let CONFIG = require('config');
+import * as logger from 'winston';
 import * as bodyParser from 'body-parser';
 import * as express from "express";
 
+// our modules
 import * as errors from "./errors";
 
 logger.info(CONFIG);

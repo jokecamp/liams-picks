@@ -1,22 +1,25 @@
-var CONFIG = require('config');
-var logger = require('winston');
-var _ = require('lodash');
+let CONFIG = require('config');
+
+import * as logger from 'winston';
+import * as _ from 'lodash';
 
 import * as Models from './models';
 
-export function compute(picks: Models.Picks, results: Models.Resuts) {
+export function compute(
+    picks: Array<Models.Pick>,
+    results: Array<Models.Result>) {
+
     logger.info('Running scoring compute');
 
     _.each(results, function(result: any) {
 
-        var pick = _.find(picks, function(p: Models.IResult) {
+        let pick: Models.Pick = _.find(picks, function(p: Models.Pick) {
             return p.gameId === result.gameId;
         });
 
         if (pick === null) {
-            pick = {
-                gameId: result.gameId
-            };
+            pick = new Models.Pick();
+            pick.gameId = result.gameId;
         }
 
         pick.pointsEarned = getPointsEarnedForGame(pick, result);
