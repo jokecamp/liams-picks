@@ -12,7 +12,7 @@ logger.info(CONFIG);
 var app = express();
 app.use(bodyParser.json());
 
-
+app.use('/picks', require('./picks'));
 
 app.get('/',
     function(req: express.Request, res: express.Response, next: express.NextFunction) {
