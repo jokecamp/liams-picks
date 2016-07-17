@@ -1,6 +1,6 @@
 let debug = require('debug')('liams');
+var logger = require('winston');
 
-import * as logger from 'winston';
 import * as CONFIG from 'config';
 import * as exp from "express";
 
@@ -10,6 +10,7 @@ export function unhandledResponse(
     res: exp.Response,
     next: exp.NextFunction) {
 
+    logger.info('unhandledResponse');
     logger.error(err);
 
     var msg = {
@@ -20,8 +21,8 @@ export function unhandledResponse(
     return res.json(msg);
 };
 
+// a non-existant route does not have an err object in signature
 export function routeNotFound(
-    err: any,
     req: exp.Request,
     res: exp.Response,
     next: exp.NextFunction) {
@@ -29,7 +30,7 @@ export function routeNotFound(
     logger.warn('route not found');
 
     var msg = {
-        message: 'Route not found'
+        message: 'Route not found.'
     };
 
     return res.json(msg);

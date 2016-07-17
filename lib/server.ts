@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 
 app.get('/',
     function(req: express.Request, res: express.Response, next: express.NextFunction) {
+        logger.info('hey request');
         res.json('hey');
     });
 

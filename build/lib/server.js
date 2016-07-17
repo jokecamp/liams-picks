@@ -8,6 +8,7 @@ logger.info(CONFIG);
 var app = express();
 app.use(bodyParser.json());
 app.get('/', function (req, res, next) {
+    logger.info('hey request');
     res.json('hey');
 });
 app.use(errors.unhandledResponse);

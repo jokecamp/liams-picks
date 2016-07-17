@@ -2,6 +2,7 @@
 var debug = require('debug')('liams');
 var logger = require('winston');
 function unhandledResponse(err, req, res, next) {
+    logger.info('unhandledResponse');
     logger.error(err);
     var msg = {
         message: 'unhandled error',
@@ -11,10 +12,10 @@ function unhandledResponse(err, req, res, next) {
 }
 exports.unhandledResponse = unhandledResponse;
 ;
-function routeNotFound(err, req, res, next) {
+function routeNotFound(req, res, next) {
     logger.warn('route not found');
     var msg = {
-        message: 'Route not found'
+        message: 'Route not found.'
     };
     return res.json(msg);
 }
