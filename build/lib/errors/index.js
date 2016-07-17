@@ -1,8 +1,7 @@
 "use strict";
-var CONFIG = require('config');
-var logger = require('winston');
 var debug = require('debug')('liams');
-function unhandledResponse(req, res, err) {
+var logger = require('winston');
+function unhandledResponse(err, req, res, next) {
     logger.error(err);
     var msg = {
         message: 'unhandled error',
@@ -12,7 +11,7 @@ function unhandledResponse(req, res, err) {
 }
 exports.unhandledResponse = unhandledResponse;
 ;
-function routeNotFound(req, res, err) {
+function routeNotFound(err, req, res, next) {
     logger.warn('route not found');
     var msg = {
         message: 'Route not found'

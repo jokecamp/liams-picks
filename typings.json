@@ -2,11 +2,14 @@
   "globalDependencies": {
     "body-parser": "registry:dt/body-parser#0.0.0+20160619023215",
     "chai": "registry:dt/chai#3.4.0+20160601211834",
+    "config": "registry:dt/config#0.0.0+20160317120654",
+    "debug": "registry:dt/debug#0.0.0+20160317120654",
     "express": "registry:dt/express#4.0.0+20160708185218",
     "express-serve-static-core": "registry:dt/express-serve-static-core#4.0.0+20160715232503",
     "mime": "registry:dt/mime#0.0.0+20160316155526",
     "mocha": "registry:dt/mocha#2.2.5+20160619032855",
     "node": "registry:dt/node#6.0.0+20160709114037",
-    "serve-static": "registry:dt/serve-static#0.0.0+20160606155157"
+    "serve-static": "registry:dt/serve-static#0.0.0+20160606155157",
+    "winston": "registry:dt/winston#0.0.0+20160417152829"
   }
 }

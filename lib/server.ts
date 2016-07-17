@@ -1,9 +1,9 @@
 var CONFIG = require('config');
 var logger = require('winston');
-var express = require('express');
-var bodyParser = require('body-parser');
 
-import * as exp from "express";
+import * as bodyParser from 'body-parser';
+import * as express from "express";
+
 import * as errors from "./errors";
 
 logger.info(CONFIG);
@@ -12,7 +12,7 @@ var app = express();
 app.use(bodyParser.json());
 
 app.get('/',
-    function(req: exp.Request, res: exp.Response, next: exp.NextFunction) {
+    function(req: express.Request, res: express.Response, next: express.NextFunction) {
         res.json('hey');
     });
 

@@ -1,13 +1,14 @@
-var CONFIG = require('config');
-var logger = require('winston');
-var debug = require('debug')('liams');
+let debug = require('debug')('liams');
 
+import * as logger from 'winston';
+import * as CONFIG from 'config';
 import * as exp from "express";
 
 export function unhandledResponse(
+    err: any,
     req: exp.Request,
     res: exp.Response,
-    err: exp.ErrorRequestHandler) {
+    next: exp.NextFunction) {
 
     logger.error(err);
 
@@ -20,9 +21,10 @@ export function unhandledResponse(
 };
 
 export function routeNotFound(
+    err: any,
     req: exp.Request,
     res: exp.Response,
-    err: exp.ErrorRequestHandler) {
+    next: exp.NextFunction) {
 
     logger.warn('route not found');
 

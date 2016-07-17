@@ -38,5 +38,9 @@ Manager can define rounds or weeks based on fixture list
     typings install dt~mocha --global --save
     typings install dt~chai --global --save
 
+    typings install dt~config --global --save
+    typings install dt~winston --global --save
+    typings install dt~debug --global --save
+
 
 https://github.com/typings/typings
