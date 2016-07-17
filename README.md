@@ -46,3 +46,8 @@ Manager can define rounds or weeks based on fixture list
 
 
 https://github.com/typings/typings
+
+
+### Deploy sql changes
+
+    psql  -d football -a -f ./db-setup.sql
