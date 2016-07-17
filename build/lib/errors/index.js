@@ -1,3 +1,4 @@
+"use strict";
 var CONFIG = require('config');
 var logger = require('winston');
 var debug = require('debug')('liams');

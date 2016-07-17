@@ -30,6 +30,9 @@ Manager can define rounds or weeks based on fixture list
 
     typings install dt~node --global --save
     typings install dt~express --global --save
+    typings install dt~serve-static --global --save
+    typings install dt~express-serve-static-core --global --save
+    typings install dt~mime --global --save
 
 
 https://github.com/typings/typings

@@ -2,19 +2,26 @@ var CONFIG = require('config');
 var logger = require('winston');
 var debug = require('debug')('liams');
 
-var unhandledResponse = function(req, res, err) {
+import * as exp from "express";
 
-    logger.error(err);
+var unhandledResponse =
+    function(req: exp.Request,
+        res: exp.Response,
+        err: exp.ErrorRequestHandler) {
 
-    var msg = {
-        message: 'unhandled error',
-        error: err || null
+        logger.error(err);
+
+        var msg = {
+            message: 'unhandled error',
+            error: err || null
+        };
+
+        return res.json(msg);
     };
 
-    return res.json(msg);
-};
-
-var routeNotFound = function(req, res, err) {
+var routeNotFound = function(req: exp.Request,
+    res: exp.Response,
+    err: exp.ErrorRequestHandler) {
 
     logger.warn('route not found');
 
