@@ -4,17 +4,22 @@ import * as bodyParser from 'body-parser';
 import * as express from "express";
 
 // our modules
-import * as errors from "./errors";
+import * as errors from './errors';
+import * as data from './data';
 
 logger.info(CONFIG);
 
 var app = express();
 app.use(bodyParser.json());
 
+
+
 app.get('/',
     function(req: express.Request, res: express.Response, next: express.NextFunction) {
-        logger.info('hey request');
-        res.json('hey');
+
+        var json = data.getData();
+        logger.info('data = ', json);
+        res.json(json);
     });
 
 // this handler gets called as long as we use promises .catch(next)

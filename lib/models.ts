@@ -8,11 +8,19 @@ export interface IResult {
 export class Pick implements IResult {
 
     gameId: number;
+    userId: number;
+    
     homeScore: number;
     awayScore: number;
+    isBonus: boolean;
     pointsEarned: number;
 
-    constructor() { }
+    constructor() {
+        this.homeScore = null;
+        this.awayScore = null;
+        this.isBonus = false;
+        this.pointsEarned = null;
+    }
 }
 
 
@@ -29,4 +37,9 @@ export class Result implements IResult {
     isFinal: boolean;
 
     constructor() { }
+}
+
+export class User {
+    userId: number;
+    name: string;
 }
