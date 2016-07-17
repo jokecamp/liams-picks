@@ -12,7 +12,7 @@ function getPicks() {
     for (var x = 1; x <= 10; x++) {
 
         let p = new Models.Pick();
-        p.gameId = 100 + x;
+        p.gameId = "100" + x;
         p.homeScore = 1;
         p.awayScore = 2;
         p.userId = user.userId;

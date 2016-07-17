@@ -1,0 +1,4 @@
+db:
+    url: 'postgres://apiuser:apiuser@localhost/football'
+logger:
+    sql: true

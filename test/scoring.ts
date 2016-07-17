@@ -13,7 +13,7 @@ describe('Scoring', function() {
 
         let pick: Models.IResult = null;
         let result: Models.IResult = {
-            gameId: 123213123,
+            gameId: '123213123',
             homeScore: 0,
             awayScore: 0
         };
@@ -24,12 +24,12 @@ describe('Scoring', function() {
     it('User has wrong picks = 0 points', function() {
 
         let pick: Models.IResult = {
-            gameId: 123213123,
+            gameId: '123213123',
             homeScore: 1,
             awayScore: 1
         };
         let result: Models.IResult = {
-            gameId: 123213123,
+            gameId: '123213123',
             homeScore: 0,
             awayScore: 0
         };
@@ -40,12 +40,12 @@ describe('Scoring', function() {
     it('User has correct picks = 3 points', function() {
 
         let pick: Models.IResult = {
-            gameId: 123213123,
+            gameId: '123213123',
             homeScore: 0,
             awayScore: 0
         };
         let result: Models.IResult = {
-            gameId: 123213123,
+            gameId: '123213123',
             homeScore: 0,
             awayScore: 0
         };

@@ -9,6 +9,12 @@ var Pick = (function () {
     return Pick;
 }());
 exports.Pick = Pick;
+var Game = (function () {
+    function Game() {
+    }
+    return Game;
+}());
+exports.Game = Game;
 var Result = (function () {
     function Result() {
     }

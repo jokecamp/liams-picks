@@ -7,7 +7,7 @@ describe('Scoring', function () {
     it('User does not have picks = 0 points', function () {
         var pick = null;
         var result = {
-            gameId: 123213123,
+            gameId: '123213123',
             homeScore: 0,
             awayScore: 0
         };
@@ -15,12 +15,12 @@ describe('Scoring', function () {
     });
     it('User has wrong picks = 0 points', function () {
         var pick = {
-            gameId: 123213123,
+            gameId: '123213123',
             homeScore: 1,
             awayScore: 1
         };
         var result = {
-            gameId: 123213123,
+            gameId: '123213123',
             homeScore: 0,
             awayScore: 0
         };
@@ -28,12 +28,12 @@ describe('Scoring', function () {
     });
     it('User has correct picks = 3 points', function () {
         var pick = {
-            gameId: 123213123,
+            gameId: '123213123',
             homeScore: 0,
             awayScore: 0
         };
         var result = {
-            gameId: 123213123,
+            gameId: '123213123',
             homeScore: 0,
             awayScore: 0
         };

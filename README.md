@@ -43,6 +43,7 @@ Manager can define rounds or weeks based on fixture list
     typings install dt~debug --global --save
 
     typings install dt~lodash --global --save
+    typings install dt~pg-promise --global --save
 
 
 https://github.com/typings/typings
@@ -50,4 +51,8 @@ https://github.com/typings/typings
 
 ### Deploy sql changes
 
-    psql  -d football -a -f ./db-setup.sql
+    psql  -d football -a -f ./db/schema-sync.sql
+
+Test import
+
+    node ./db/import.js

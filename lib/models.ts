@@ -1,15 +1,15 @@
 
 export interface IResult {
-    gameId: number;
+    gameId: string;
     homeScore: number;
     awayScore: number;
 }
 
 export class Pick implements IResult {
 
-    gameId: number;
-    userId: number;
-    
+    gameId: string;
+    userId: string;
+
     homeScore: number;
     awayScore: number;
     isBonus: boolean;
@@ -23,10 +23,27 @@ export class Pick implements IResult {
     }
 }
 
+export class Game implements IResult {
+
+    gameId: string;
+
+    // how to handle dates?
+    when: string;
+
+    homeTeam: string;
+    homeScore: number;
+
+    awayTeam: string;
+    awayScore: number;
+
+    isFinal: boolean;
+
+    constructor() { }
+}
 
 export class Result implements IResult {
 
-    gameId: number;
+    gameId: string;
 
     // how to handle dates?
     when: string;
