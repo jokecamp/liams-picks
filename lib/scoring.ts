@@ -2,12 +2,14 @@ var CONFIG = require('config');
 var logger = require('winston');
 var _ = require('lodash');
 
-var compute = function(picks, results) {
+import * as Models from './models';
+
+export function compute(picks: Models.Picks, results: Models.Resuts) {
     logger.info('Running scoring compute');
 
-    _.each(results, function(result) {
+    _.each(results, function(result: any) {
 
-        var pick = _.find(picks, function(p) {
+        var pick = _.find(picks, function(p: Models.IResult) {
             return p.gameId === result.gameId;
         });
 
@@ -23,7 +25,7 @@ var compute = function(picks, results) {
     return false;
 };
 
-var getPointsEarnedForGame = function(pick, result) {
+export function getPointsEarnedForGame(pick: Models.IResult, result: Models.IResult) {
 
     logger.info('Result: %s vs Pick: %s',
         JSON.stringify(result), JSON.stringify(pick));
@@ -42,9 +44,4 @@ var getPointsEarnedForGame = function(pick, result) {
         logger.info('user had incorrect score picks.');
         return 0;
     }
-};
-
-module.exports = {
-    compute: compute,
-    getPointsEarnedForGame: getPointsEarnedForGame
 };

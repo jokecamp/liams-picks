@@ -4,8 +4,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 import * as exp from "express";
-
-var errors = require('./errors');
+import * as errors from "./errors";
 
 logger.info(CONFIG);
 

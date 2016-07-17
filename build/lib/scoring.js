@@ -1,7 +1,8 @@
+"use strict";
 var CONFIG = require('config');
 var logger = require('winston');
 var _ = require('lodash');
-var compute = function (picks, results) {
+function compute(picks, results) {
     logger.info('Running scoring compute');
     _.each(results, function (result) {
         var pick = _.find(picks, function (p) {
@@ -15,8 +16,10 @@ var compute = function (picks, results) {
         pick.pointsEarned = getPointsEarnedForGame(pick, result);
     });
     return false;
-};
-var getPointsEarnedForGame = function (pick, result) {
+}
+exports.compute = compute;
+;
+function getPointsEarnedForGame(pick, result) {
     logger.info('Result: %s vs Pick: %s', JSON.stringify(result), JSON.stringify(pick));
     if (pick === null) {
         logger.info('user did not have picks');
@@ -31,8 +34,6 @@ var getPointsEarnedForGame = function (pick, result) {
         logger.info('user had incorrect score picks.');
         return 0;
     }
-};
-module.exports = {
-    compute: compute,
-    getPointsEarnedForGame: getPointsEarnedForGame
-};
+}
+exports.getPointsEarnedForGame = getPointsEarnedForGame;
+;

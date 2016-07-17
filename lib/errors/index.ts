@@ -4,22 +4,23 @@ var debug = require('debug')('liams');
 
 import * as exp from "express";
 
-var unhandledResponse =
-    function(req: exp.Request,
-        res: exp.Response,
-        err: exp.ErrorRequestHandler) {
+export function unhandledResponse(
+    req: exp.Request,
+    res: exp.Response,
+    err: exp.ErrorRequestHandler) {
 
-        logger.error(err);
+    logger.error(err);
 
-        var msg = {
-            message: 'unhandled error',
-            error: err || null
-        };
-
-        return res.json(msg);
+    var msg = {
+        message: 'unhandled error',
+        error: err || null
     };
 
-var routeNotFound = function(req: exp.Request,
+    return res.json(msg);
+};
+
+export function routeNotFound(
+    req: exp.Request,
     res: exp.Response,
     err: exp.ErrorRequestHandler) {
 
@@ -30,9 +31,4 @@ var routeNotFound = function(req: exp.Request,
     };
 
     return res.json(msg);
-};
-
-module.exports = {
-    unhandledResponse: unhandledResponse,
-    routeNotFound: routeNotFound
 };

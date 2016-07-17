@@ -3,7 +3,7 @@ var CONFIG = require('config');
 var logger = require('winston');
 var express = require('express');
 var bodyParser = require('body-parser');
-var errors = require('./errors');
+var errors = require("./errors");
 logger.info(CONFIG);
 var app = express();
 app.use(bodyParser.json());
