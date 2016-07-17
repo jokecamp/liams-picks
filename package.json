@@ -7,7 +7,7 @@
     "test": "mocha ./build/test",
     "start": "nodemon index.js",
     "clean" : "rm -rf ./build",
-    "build": "tsc"
+    "compile": "tsc --listFiles"
   },
   "author": "",
   "license": "ISC",
