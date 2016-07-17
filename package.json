@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "clean" : "rm -rf ./build",
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",

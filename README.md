@@ -21,3 +21,15 @@ Winner can change user's avatar.
 
 Manager can invite users by email into league
 Manager can define rounds or weeks based on fixture list
+
+
+## setup
+
+    npm install typescript --global
+    npm install typings --global
+
+    typings install dt~node --global --save
+    typings install dt~express --global --save
+
+
+https://github.com/typings/typings
