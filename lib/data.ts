@@ -33,7 +33,7 @@ function getUsers() {
     for (var x = 1; x <= 3; x++) {
 
         let p = new Models.User();
-        p.userId = 20 + x;
+        p.userId = "20" + x;
         p.name = _.shuffle(names)[0];
         users.push(p);
     }

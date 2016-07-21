@@ -27,3 +27,15 @@ var User = (function () {
     return User;
 }());
 exports.User = User;
+var League = (function () {
+    function League() {
+    }
+    return League;
+}());
+exports.League = League;
+var Round = (function () {
+    function Round() {
+    }
+    return Round;
+}());
+exports.Round = Round;

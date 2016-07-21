@@ -9,6 +9,7 @@ logger.info(CONFIG);
 var app = express();
 app.use(bodyParser.json());
 app.use('/picks', require('./picks'));
+app.use('/leagues', require('./leagues'));
 app.get('/', function (req, res, next) {
     var json = data.getData();
     logger.info('data = ', json);

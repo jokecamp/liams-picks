@@ -57,6 +57,17 @@ export class Result implements IResult {
 }
 
 export class User {
-    userId: number;
+    userId: string;
     name: string;
+}
+
+export class League {
+    leagueId: string;
+    name: string;
+}
+
+export class Round {
+    roundId: string;
+    leagueId: string;
+    number: number;
 }
