@@ -1,8 +1,12 @@
-export class DatedRecord {
+let urljoin = require('url-join');
+let CONFIG = require('config');
+
+export class BaseModel {
 
     created: string;
     modified: string;
     deleted: string;
+    links: Link[];
 
     isDeleted() {
         return this.deleted !== null && this.deleted > '';
@@ -12,7 +16,26 @@ export class DatedRecord {
         this.created = row.created_at;
         this.modified = row.updated_at;
         this.deleted = row.deleted_at;
+        this.links = [];
     }
+
+    addLink(rel: string, paths: string[]) {
+        var href = urljoin(CONFIG.domain, paths.join('/'));
+        var link = new Link(rel, href)
+        this.links.push(link);
+    }
+}
+
+export class Link {
+    rel: string;
+    href: string;
+
+    constructor(rel: string, href: string) {
+        this.rel = rel;
+        this.href = href;
+    }
+
+    static REL_SELF: string = 'self';
 }
 
 export interface IResult {

@@ -19,3 +19,11 @@ function postLeague(req, res, next) {
 }
 exports.postLeague = postLeague;
 ;
+function getById(req, res, next) {
+    var id = req.params.leagueId;
+    return model_1.League.getById(id)
+        .then(function (item) {
+        return res.json(item);
+    });
+}
+exports.getById = getById;

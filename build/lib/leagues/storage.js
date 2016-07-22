@@ -31,3 +31,12 @@ function getAll() {
     });
 }
 exports.getAll = getAll;
+function getById(id) {
+    var sql = 'select * from leagues where id = $1';
+    return db.oneOrNone(sql, [id])
+        .catch(function (err) {
+        logger.error(err);
+        return err;
+    });
+}
+exports.getById = getById;

@@ -1,6 +1,6 @@
+let _ = require('lodash');
 import * as express from "express";
-
-import { DatedRecord } from '../models';
+import { BaseModel, Link } from '../models';
 import * as storage from './storage';
 
 /*
@@ -8,8 +8,9 @@ import * as storage from './storage';
         A round cotains many Games
             A game can have a user pick
 */
-export class League extends DatedRecord {
+export class League extends BaseModel {
 
+    static ROUTE: string = 'leagues';
     leagueId: string;
     name: string;
 
@@ -20,9 +21,10 @@ export class League extends DatedRecord {
     populateFromRow(row: any) {
         this.leagueId = row.id;
         this.name = row.namee;
-
-        // load the inherited class DatedRecord fromRow
+        // load the inherited class BaseModel fromRow
         super.populateFromRow(row);
+
+        this.addLink(Link.REL_SELF, [League.ROUTE, this.leagueId]);
     }
 
     create() {
@@ -30,7 +32,24 @@ export class League extends DatedRecord {
     }
 
     /* Static Methods */
+    static fromRow(row: Object) {
+        var league = new League();
+        league.populateFromRow(row);
+        return league;
+    }
+
     static getAll() {
-        return storage.getAll();
+        return storage.getAll().then(function(rows: Object[]) {
+            return _.map(rows, function(row: Object) {
+                return League.fromRow(row);
+            });
+        });
+    }
+
+    static getById(id: string) {
+        return storage.getById(id)
+            .then(function(row: Object) {
+                return League.fromRow(row);
+            });
     }
 }

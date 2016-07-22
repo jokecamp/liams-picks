@@ -38,3 +38,13 @@ export function getAll() {
             return err;
         });
 }
+
+export function getById(id: string) {
+
+    var sql = 'select * from leagues where id = $1';
+    return db.oneOrNone(sql, [id])
+        .catch(function(err: any) {
+            logger.error(err);
+            return err;
+        });
+}

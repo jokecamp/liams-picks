@@ -27,3 +27,16 @@ export function postLeague(
             return res.json(league);
         });;
 };
+
+export function getById(
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction) {
+
+    var id = req.params.leagueId;
+
+    return League.getById(id)
+        .then(function(item: League) {
+            return res.json(item);
+        });
+}
