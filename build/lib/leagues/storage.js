@@ -22,6 +22,22 @@ function insert(league) {
     });
 }
 exports.insert = insert;
+function update(league) {
+    var sql = squel.update()
+        .table("leagues")
+        .set("id", league.leagueId)
+        .set("league_name", league.name)
+        .set("created_at", squel.str('CURRENT_TIMESTAMP'))
+        .set("updated_at", squel.str('CURRENT_TIMESTAMP'))
+        .where("id = ?", league.leagueId)
+        .toString();
+    return db.none(sql)
+        .catch(function (err) {
+        logger.error(err);
+        return err;
+    });
+}
+exports.update = update;
 function getAll() {
     var sql = 'select * from leagues';
     return db.query(sql)
@@ -40,3 +56,18 @@ function getById(id) {
     });
 }
 exports.getById = getById;
+function deleteById(id) {
+    var sql = squel.update()
+        .table("leagues")
+        .set("deleted_at", squel.str('CURRENT_TIMESTAMP'))
+        .set("created_at", squel.str('CURRENT_TIMESTAMP'))
+        .set("updated_at", squel.str('CURRENT_TIMESTAMP'))
+        .where("id = ?", id)
+        .toString();
+    return db.none(sql)
+        .catch(function (err) {
+        logger.error(err);
+        return err;
+    });
+}
+exports.deleteById = deleteById;

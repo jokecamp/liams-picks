@@ -9,9 +9,10 @@ export function getLeagues(
     res: express.Response,
     next: express.NextFunction) {
 
-    return League.getAll().then(function(items: League[]) {
-        return res.json(items);
-    });
+    return League.getAll()
+        .then(function(items: League[]) {
+            return res.json(items);
+        }).catch(next);
 };
 
 export function postLeague(
@@ -19,14 +20,27 @@ export function postLeague(
     res: express.Response,
     next: express.NextFunction) {
 
-    let league = new League();
-    league.name = req.body.name;
+    let league = League.parseFromReq(req);
 
     return league.create()
-        .then(function() {
-            return res.json(league);
-        });;
+        .then(function(inserted: League) {
+            return res.json(inserted);
+        }).catch(next);
 };
+
+export function putById(
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction) {
+
+    let league = League.parseFromReq(req);
+    league.leagueId = req.params.leagueId;
+
+    return league.update()
+        .then(function(item: League) {
+            return res.json(item);
+        }).catch(next);
+}
 
 export function getById(
     req: express.Request,
@@ -38,5 +52,18 @@ export function getById(
     return League.getById(id)
         .then(function(item: League) {
             return res.json(item);
-        });
+        }).catch(next);
+}
+
+export function deleteById(
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction) {
+
+    var id = req.params.leagueId;
+
+    return League.deleteById(id)
+        .then(function() {
+            return res.json({});
+        }).catch(next);
 }

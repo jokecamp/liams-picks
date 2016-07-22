@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./build/test --recursive -bail",
+    "test": "NODE_ENV=integration mocha ./build/test --recursive -bail",
     "start": "nodemon ./build/index.js",
     "clean": "rm -rf ./build",
     "tsc": "tsc --listFiles",
