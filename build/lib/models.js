@@ -1,5 +1,4 @@
 "use strict";
-var urljoin = require('url-join');
 var CONFIG = require('config');
 var BaseModel = (function () {
     function BaseModel() {
@@ -14,7 +13,7 @@ var BaseModel = (function () {
         this.links = [];
     };
     BaseModel.prototype.addLink = function (rel, paths) {
-        var href = urljoin(CONFIG.domain, paths.join('/'));
+        var href = CONFIG.domain + paths.join('/');
         var link = new Link(rel, href);
         this.links.push(link);
     };

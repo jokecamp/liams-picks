@@ -1,4 +1,3 @@
-let urljoin = require('url-join');
 let CONFIG = require('config');
 
 export class BaseModel {
@@ -20,7 +19,7 @@ export class BaseModel {
     }
 
     addLink(rel: string, paths: string[]) {
-        var href = urljoin(CONFIG.domain, paths.join('/'));
+        var href = CONFIG.domain + paths.join('/');
         var link = new Link(rel, href)
         this.links.push(link);
     }
