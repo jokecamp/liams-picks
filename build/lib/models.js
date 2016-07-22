@@ -1,4 +1,18 @@
 "use strict";
+var DatedRecord = (function () {
+    function DatedRecord() {
+    }
+    DatedRecord.prototype.isDeleted = function () {
+        return this.deleted !== null && this.deleted > '';
+    };
+    DatedRecord.prototype.populateFromRow = function (row) {
+        this.created = row.created_at;
+        this.modified = row.updated_at;
+        this.deleted = row.deleted_at;
+    };
+    return DatedRecord;
+}());
+exports.DatedRecord = DatedRecord;
 var Pick = (function () {
     function Pick() {
         this.homeScore = null;
@@ -27,12 +41,6 @@ var User = (function () {
     return User;
 }());
 exports.User = User;
-var League = (function () {
-    function League() {
-    }
-    return League;
-}());
-exports.League = League;
 var Round = (function () {
     function Round() {
     }

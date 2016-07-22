@@ -1,3 +1,19 @@
+export class DatedRecord {
+
+    created: string;
+    modified: string;
+    deleted: string;
+
+    isDeleted() {
+        return this.deleted !== null && this.deleted > '';
+    }
+
+    populateFromRow(row: any) {
+        this.created = row.created_at;
+        this.modified = row.updated_at;
+        this.deleted = row.deleted_at;
+    }
+}
 
 export interface IResult {
     gameId: string;
@@ -58,11 +74,6 @@ export class Result implements IResult {
 
 export class User {
     userId: string;
-    name: string;
-}
-
-export class League {
-    leagueId: string;
     name: string;
 }
 
