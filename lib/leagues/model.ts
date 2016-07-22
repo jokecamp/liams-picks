@@ -1,6 +1,7 @@
 import * as express from "express";
 
 import { DatedRecord } from '../models';
+import * as storage from './storage';
 
 /*
     A league contains many Rounds.
@@ -22,5 +23,14 @@ export class League extends DatedRecord {
 
         // load the inherited class DatedRecord fromRow
         super.populateFromRow(row);
+    }
+
+    create() {
+        return storage.insert(this);
+    }
+
+    /* Static Methods */
+    static getAll() {
+        return storage.getAll();
     }
 }

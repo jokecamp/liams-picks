@@ -20,7 +20,7 @@ describe('Root', function () {
     });
     it('Create League - POST League', function (done) {
         var league = {
-            name: 'Mock League',
+            name: 'Mock League'
         };
         request(app)
             .post('/leagues')

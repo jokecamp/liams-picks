@@ -5,6 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var models_1 = require('../models');
+var storage = require('./storage');
 var League = (function (_super) {
     __extends(League, _super);
     function League() {
@@ -17,6 +18,12 @@ var League = (function (_super) {
         this.leagueId = row.id;
         this.name = row.namee;
         _super.prototype.populateFromRow.call(this, row);
+    };
+    League.prototype.create = function () {
+        return storage.insert(this);
+    };
+    League.getAll = function () {
+        return storage.getAll();
     };
     return League;
 }(models_1.DatedRecord));
