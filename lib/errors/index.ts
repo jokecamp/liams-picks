@@ -18,7 +18,7 @@ export function unhandledResponse(
         error: err || null
     };
 
-    return res.json(msg);
+    return res.status(500).json(msg);
 };
 
 // a non-existant route does not have an err object in signature
@@ -33,5 +33,5 @@ export function routeNotFound(
         message: 'Route not found.'
     };
 
-    return res.json(msg);
+    return res.status(404).json(msg);
 };

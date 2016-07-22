@@ -16,14 +16,23 @@ export function insert(league: Models.League) {
     league.leagueId = uuid.v4();
 
     var sql = squel.insert()
-        .into("games")
+        .into("leagues")
         .set("id", league.leagueId)
-        .set("name", league.name)
+        .set("league_name", league.name)
         .set("created_at", squel.str('CURRENT_TIMESTAMP'))
         .set("updated_at", squel.str('CURRENT_TIMESTAMP'))
         .toString();
 
     return db.none(sql)
+        .catch(function(err: any) {
+            logger.error(err);
+            return err;
+        });
+}
+
+export function getAll() {
+    var sql = 'select * from leagues';
+    return db.query(sql)
         .catch(function(err: any) {
             logger.error(err);
             return err;

@@ -1,14 +1,17 @@
 let CONFIG = require('config');
 import * as express from "express";
 import * as data from '../data';
+import * as Models from '../models';
+import * as storage from './storage';
 
 export function getLeagues(
     req: express.Request,
     res: express.Response,
     next: express.NextFunction) {
 
-    var leagues: any[] = [];
-    return res.json(leagues);
+    return storage.getAll().then(function(items: any) {
+        return res.json(items);
+    });
 };
 
 export function postLeague(
@@ -16,6 +19,11 @@ export function postLeague(
     res: express.Response,
     next: express.NextFunction) {
 
-    var leagues: any[] = [];
-    return res.json(leagues);
+    let league = new Models.League();
+    league.name = req.body.name;
+
+    return storage.insert(league)
+        .then(function() {
+            return res.json(league);
+        });;
 };

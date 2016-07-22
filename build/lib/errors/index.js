@@ -8,7 +8,7 @@ function unhandledResponse(err, req, res, next) {
         message: 'unhandled error',
         error: err || null
     };
-    return res.json(msg);
+    return res.status(500).json(msg);
 }
 exports.unhandledResponse = unhandledResponse;
 ;
@@ -17,7 +17,7 @@ function routeNotFound(req, res, next) {
     var msg = {
         message: 'Route not found.'
     };
-    return res.json(msg);
+    return res.status(404).json(msg);
 }
 exports.routeNotFound = routeNotFound;
 ;
