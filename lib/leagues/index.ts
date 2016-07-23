@@ -1,14 +1,16 @@
 import * as CONFIG from 'config';
 import * as express from 'express';
 
-import * as controller from './controller';
+import { LeagueController } from './controller';
 
 let router = express.Router();
 
-router.get('/', controller.getLeagues);
-router.post('/', controller.postLeague);
-router.get('/:leagueId', controller.getById);
-router.put('/:leagueId', controller.putById);
-router.delete('/:leagueId', controller.deleteById);
+let controller = new LeagueController();
+
+router.get('/', controller.getItems);
+router.post('/', controller.postItem);
+router.get('/:leagueId', controller.getItemById);
+router.put('/:leagueId', controller.putItemById);
+router.delete('/:leagueId', controller.deleteItemById);
 
 export = router;

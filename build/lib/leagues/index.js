@@ -1,10 +1,11 @@
 "use strict";
 var express = require('express');
-var controller = require('./controller');
+var controller_1 = require('./controller');
 var router = express.Router();
-router.get('/', controller.getLeagues);
-router.post('/', controller.postLeague);
-router.get('/:leagueId', controller.getById);
-router.put('/:leagueId', controller.putById);
-router.delete('/:leagueId', controller.deleteById);
+var controller = new controller_1.LeagueController();
+router.get('/', controller.getItems);
+router.post('/', controller.postItem);
+router.get('/:leagueId', controller.getItemById);
+router.put('/:leagueId', controller.putItemById);
+router.delete('/:leagueId', controller.deleteItemById);
 module.exports = router;

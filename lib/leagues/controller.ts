@@ -3,72 +3,75 @@ let CONFIG = require('config');
 import * as express from "express";
 import * as errors from '../errors';
 import { League } from './model';
+import { IRestController } from '../bases/IRestController';
 
-export function getLeagues(
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction) {
+export class LeagueController implements IRestController {
 
-    return League.getAll()
-        .then(function(items: League[]) {
-            return res.json(items);
-        }).catch(next);
-};
+    getItems(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction) {
 
-export function postLeague(
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction) {
+        return League.getAll()
+            .then(function(items: League[]) {
+                return res.json(items);
+            }).catch(next);
+    };
 
-    let league = League.parseFromReq(req);
+    postItem(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction) {
 
-    return league.create()
-        .then(function(inserted: League) {
-            return res.json(inserted);
-        }).catch(next);
-};
+        let league = League.parseFromReq(req);
 
-export function putById(
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction) {
+        return league.create()
+            .then(function(inserted: League) {
+                return res.json(inserted);
+            }).catch(next);
+    };
 
-    let league = League.parseFromReq(req);
-    league.leagueId = req.params.leagueId;
+    putItemById(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction) {
 
-    return league.update()
-        .then(function(item: League) {
-            return res.json(item);
-        }).catch(next);
-}
+        let league = League.parseFromReq(req);
 
-export function getById(
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction) {
+        return league.update()
+            .then(function(item: League) {
+                return res.json(item);
+            }).catch(next);
+    }
 
-    var id = req.params.leagueId;
+    getItemById(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction) {
 
-    return League.getById(id)
-        .then(function(item: League) {
+        var id = req.params.leagueId;
 
-            if (item === null) {
-                return errors.itemNotFound(req, res, next);
-            }
+        return League.getById(id)
+            .then(function(item: League) {
 
-            return res.json(item);
-        }).catch(next);
-}
+                if (item === null) {
+                    return errors.itemNotFound(req, res, next);
+                }
 
-export function deleteById(
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction) {
+                return res.json(item);
+            }).catch(next);
+    }
 
-    var id = req.params.leagueId;
+    deleteItemById(
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction) {
 
-    return League.deleteById(id)
-        .then(function() {
-            return res.json({});
-        }).catch(next);
+        var id = req.params.leagueId;
+
+        return League.deleteById(id)
+            .then(function() {
+                return res.json({});
+            }).catch(next);
+    }
 }

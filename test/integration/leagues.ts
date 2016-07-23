@@ -9,6 +9,9 @@ import * as app from '../../lib/server';
 let league: any = null;
 let leagueHref: string = null;
 
+let game: any = null;
+let gameHref: string = null;
+
 logger.set = 'debug';
 
 describe('Leagues', function() {
@@ -95,5 +98,38 @@ describe('Leagues', function() {
                 done();
             });
     });
+
+    it('Create Game - POST Game', function(done) {
+
+        let item = {
+            home: {
+                team: "Manchester United",
+                score: 3
+            },
+            away: {
+                team: 'Arsenal',
+                score: 0
+            }
+        };
+
+        request(app)
+            .post('/games')
+            .set('Accept', 'application/json')
+            .expect(200)
+            .send(item)
+            .end(function(err: any, res: any) {
+
+                game = res.body;
+                console.log(game);
+                gameHref = game.links[0].href;
+
+                if (err) {
+                    logger.error(res.body);
+                    return done(err);
+                }
+                done();
+            });
+    });
+
 
 });

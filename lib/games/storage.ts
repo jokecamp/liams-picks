@@ -17,7 +17,7 @@ export class GameStorage extends BaseStorage {
         var sql = this.squel.insert()
             .into(this.tableName)
             .set("id", game.gameId)
-            .set("scheduled_at", game.when)
+            //.set("scheduled_at", game.when)
             .set("home_score", game.home.score)
             .set("away_score", game.away.score)
             .set("home_team", game.home.team)
@@ -37,7 +37,7 @@ export class GameStorage extends BaseStorage {
 
         var sql = this.squel.update()
             .table(this.tableName)
-            .set("scheduled_at", game.when)
+            //.set("scheduled_at", game.when)
             .set("home_score", game.home.score)
             .set("away_score", game.away.score)
             .set("home_team", game.home.team)

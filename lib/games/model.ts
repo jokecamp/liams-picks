@@ -36,6 +36,8 @@ export class Game extends BaseModel implements IResult {
 
     constructor() {
         super();
+        this.gameId = null;
+
         this.home = {
             team: null,
             score: null
@@ -89,7 +91,15 @@ export class Game extends BaseModel implements IResult {
     /* Statics */
     static parseFromReq(req: express.Request) {
         let game = new Game();
-        game.home.team = req.body.name;
+
+        game.home.team = req.body.home.team;
+        game.home.score = req.body.home.score;
+
+        game.away.team = req.body.away.team;
+        game.away.score = req.body.away.score;
+
+        game.isFinal = req.body.isFinal;
+
         return game;
     }
 

@@ -7,6 +7,8 @@ var logger = require('winston');
 var app = require('../../lib/server');
 var league = null;
 var leagueHref = null;
+var game = null;
+var gameHref = null;
 logger.set = 'debug';
 describe('Leagues', function () {
     it('GET / root', function (done) {
@@ -25,7 +27,7 @@ describe('Leagues', function () {
     });
     it('Create League - POST League', function (done) {
         var item = {
-            name: 'Mock League'
+            name: 'Mock League',
         };
         request(app)
             .post('/leagues')
@@ -71,6 +73,33 @@ describe('Leagues', function () {
             if (err) {
                 logger.error(err);
                 logger.error(res.body || null);
+                return done(err);
+            }
+            done();
+        });
+    });
+    it('Create Game - POST Game', function (done) {
+        var item = {
+            home: {
+                team: "Manchester United",
+                score: 3
+            },
+            away: {
+                team: 'Arsenal',
+                score: 0
+            }
+        };
+        request(app)
+            .post('/games')
+            .set('Accept', 'application/json')
+            .expect(200)
+            .send(item)
+            .end(function (err, res) {
+            game = res.body;
+            console.log(game);
+            gameHref = game.links[0].href;
+            if (err) {
+                logger.error(res.body);
                 return done(err);
             }
             done();

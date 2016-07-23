@@ -40,6 +40,9 @@ var League = (function (_super) {
     };
     League.parseFromReq = function (req) {
         var league = new League();
+        if (req.params && req.params.leagueId) {
+            league.leagueId = req.params.leagueId;
+        }
         league.name = req.body.name;
         return league;
     };

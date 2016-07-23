@@ -7,7 +7,6 @@ import { Link } from '../common-models/link'
 import { LeagueStorage } from './storage';
 let storage: LeagueStorage = new LeagueStorage('leagues');
 
-
 /*
     A league contains many Rounds.
         A round cotains many Games
@@ -53,6 +52,11 @@ export class League extends BaseModel {
     /* Static Methods */
     static parseFromReq(req: express.Request) {
         let league = new League();
+
+        if (req.params && req.params.leagueId) {
+            league.leagueId = req.params.leagueId;
+        }
+
         league.name = req.body.name;
         return league;
     }

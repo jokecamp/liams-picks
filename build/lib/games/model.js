@@ -14,6 +14,7 @@ var Game = (function (_super) {
     __extends(Game, _super);
     function Game() {
         _super.call(this);
+        this.gameId = null;
         this.home = {
             team: null,
             score: null
@@ -55,7 +56,11 @@ var Game = (function (_super) {
     };
     Game.parseFromReq = function (req) {
         var game = new Game();
-        game.home.team = req.body.name;
+        game.home.team = req.body.home.team;
+        game.home.score = req.body.home.score;
+        game.away.team = req.body.away.team;
+        game.away.score = req.body.away.score;
+        game.isFinal = req.body.isFinal;
         return game;
     };
     Game.fromRow = function (row) {

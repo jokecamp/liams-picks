@@ -1,6 +1,11 @@
 "use strict";
 var express = require('express');
-var controller = require('./controller');
+var controller_1 = require('./controller');
 var router = express.Router();
-router.get('/', controller.getGames);
+var controller = new controller_1.GameController();
+router.get('/', controller.getItems);
+router.post('/', controller.postItem);
+router.get('/:gameId', controller.getItemById);
+router.put('/:gameId', controller.putItemById);
+router.delete('/:gameId', controller.deleteItemById);
 module.exports = router;
