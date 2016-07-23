@@ -24,7 +24,7 @@ describe('Leagues', function () {
     });
     it('Create League - POST League', function (done) {
         var item = {
-            name: 'Mock League',
+            name: 'Mock League'
         };
         request(app)
             .post('/leagues')
@@ -33,7 +33,6 @@ describe('Leagues', function () {
             .send(item)
             .end(function (err, res) {
             league = res.body;
-
             console.log(league);
             leagueHref = league.links[0].href;
             if (err) {

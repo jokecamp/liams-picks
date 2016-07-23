@@ -4,9 +4,7 @@ let uuid = require('node-uuid');
 import * as logger from 'winston';
 import { League } from './model';
 
-//var url = CONFIG.db.url;
-var url = 'postgres://apiuser:apiuser@localhost/football';
-
+var url = CONFIG.db.url;
 var pgp = require('pg-promise')();
 var db = pgp(url);
 var squel = require('squel').useFlavour('postgres');
