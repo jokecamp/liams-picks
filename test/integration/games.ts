@@ -23,7 +23,8 @@ describe('Games', function() {
             away: {
                 team: 'Arsenal',
                 score: 0
-            }
+            },
+            when: new Date()
         };
 
         request(app)

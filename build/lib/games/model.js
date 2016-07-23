@@ -15,6 +15,8 @@ var Game = (function (_super) {
     function Game() {
         _super.call(this);
         this.gameId = null;
+        this.when = null;
+        this.roundId = null;
         this.home = {
             team: null,
             score: null
@@ -31,6 +33,7 @@ var Game = (function (_super) {
         }
         this.gameId = row.id;
         this.when = row.scheduled_at;
+        this.roundId = row.round_id;
         this.home.team = row.home_team,
             this.home.score = row.home_score;
         this.away.team = row.away_team,
@@ -56,11 +59,16 @@ var Game = (function (_super) {
     };
     Game.parseFromReq = function (req) {
         var game = new Game();
+        if (req.params && req.params.gameId) {
+            game.gameId = req.params.gameId;
+        }
         game.home.team = req.body.home.team;
         game.home.score = req.body.home.score;
         game.away.team = req.body.away.team;
         game.away.score = req.body.away.score;
         game.isFinal = req.body.isFinal;
+        game.when = req.body.when;
+        game.roundId = req.body.roundId;
         return game;
     };
     Game.fromRow = function (row) {

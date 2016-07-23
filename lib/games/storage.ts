@@ -14,10 +14,13 @@ export class GameStorage extends BaseStorage {
 
         game.gameId = this.generateUuid();
 
+        if (!game.when) game.when = null;
+
         var sql = this.squel.insert()
             .into(this.tableName)
             .set("id", game.gameId)
-            //.set("scheduled_at", game.when)
+            .set("round_id", game.roundId || null)
+            .set("scheduled_at", game.when || null)
             .set("home_score", game.home.score)
             .set("away_score", game.away.score)
             .set("home_team", game.home.team)
@@ -26,6 +29,7 @@ export class GameStorage extends BaseStorage {
             .setFields(this.createdTimestamps())
             .toString();
 
+        logger.info(sql);
         return this.db.none(sql)
             .catch(function(err: any) {
                 logger.error(err);
@@ -37,15 +41,18 @@ export class GameStorage extends BaseStorage {
 
         var sql = this.squel.update()
             .table(this.tableName)
-            //.set("scheduled_at", game.when)
+            .set("round_id", game.roundId || null)
+            .set("scheduled_at", game.when || null)
             .set("home_score", game.home.score)
             .set("away_score", game.away.score)
             .set("home_team", game.home.team)
             .set("away_team", game.away.team)
             .set("is_final", game.isFinal || false)
             .setFields(this.udpatedTimestamps())
+            .where("id = ?", game.gameId)
             .toString();
 
+        logger.info(sql);
         return this.db.none(sql);
     }
 
