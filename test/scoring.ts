@@ -14,8 +14,8 @@ describe('Scoring', function() {
         let pick: IResult = null;
         let result: IResult = {
             gameId: '123213123',
-            homeScore: 0,
-            awayScore: 0
+            home: {score: 0 },
+            away: {score: 0 },
         };
 
         assert.equal(scoring.getPointsEarnedForGame(pick, result), 0);
@@ -25,13 +25,13 @@ describe('Scoring', function() {
 
         let pick: IResult = {
             gameId: '123213123',
-            homeScore: 1,
-            awayScore: 1
+            home: {score: 1 },
+            away: {score: 1 },
         };
         let result: IResult = {
             gameId: '123213123',
-            homeScore: 0,
-            awayScore: 0
+            home: {score: 0 },
+            away: {score: 0 },
         };
 
         assert.equal(scoring.getPointsEarnedForGame(pick, result), 0);
@@ -41,13 +41,13 @@ describe('Scoring', function() {
 
         let pick: IResult = {
             gameId: '123213123',
-            homeScore: 0,
-            awayScore: 0
+            home: {score: 0 },
+            away: {score: 0 },
         };
         let result: IResult = {
             gameId: '123213123',
-            homeScore: 0,
-            awayScore: 0
+            home: {score: 0 },
+            away: {score: 0 },
         };
 
         assert.equal(scoring.getPointsEarnedForGame(pick, result), 3);

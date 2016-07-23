@@ -5,14 +5,25 @@ export class Pick implements IResult {
     gameId: string;
     userId: string;
 
-    homeScore: number;
-    awayScore: number;
+
+    home: {
+        score: number;
+    }
+
+    away: {
+        score: number;
+    }
+
     isBonus: boolean;
     pointsEarned: number;
 
     constructor() {
-        this.homeScore = null;
-        this.awayScore = null;
+        this.home = {
+            score: null
+        };
+        this.away = {
+            score: null
+        };
         this.isBonus = false;
         this.pointsEarned = null;
     }

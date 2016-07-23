@@ -1,8 +1,14 @@
 
 export interface IResult {
     gameId: string;
-    homeScore: number;
-    awayScore: number;
+
+    home: {
+        score: number;
+    }
+
+    away: {
+        score: number;
+    }
 }
 
 
@@ -13,8 +19,13 @@ export class Result implements IResult {
     // how to handle dates?
     when: string;
 
-    homeScore: number;
-    awayScore: number;
+    home: {
+        score: number;
+    }
+
+    away: {
+        score: number;
+    }
 
     isFinal: boolean;
 

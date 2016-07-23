@@ -1,17 +1,26 @@
 import { IResult } from '../common-models/result';
+import { BaseModel } from '../common-models/base'
 
-export class Game implements IResult {
+/*
+    A game is a result/fixture.
+    It can be scheduled or already completed
+*/
+export class Game extends BaseModel implements IResult {
 
     gameId: string;
 
     // how to handle dates?
     when: string;
 
-    homeTeam: string;
-    homeScore: number;
+    home: {
+        team: string;
+        score: number;
+    }
 
-    awayTeam: string;
-    awayScore: number;
+    away: {
+        team: string;
+        score: number;
+    }
 
     isFinal: boolean;
 }

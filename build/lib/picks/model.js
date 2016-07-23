@@ -1,8 +1,12 @@
 "use strict";
 var Pick = (function () {
     function Pick() {
-        this.homeScore = null;
-        this.awayScore = null;
+        this.home = {
+            score: null
+        };
+        this.away = {
+            score: null
+        };
         this.isBonus = false;
         this.pointsEarned = null;
     }

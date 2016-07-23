@@ -25,8 +25,8 @@ function getPointsEarnedForGame(pick, result) {
         logger.info('user did not have picks');
         return 0;
     }
-    if (pick.homeScore === result.homeScore &&
-        pick.awayScore === result.awayScore) {
+    if (pick.home.score === result.home.score &&
+        pick.away.score === result.away.score) {
         logger.info('user picked the exact score.');
         return 3;
     }
