@@ -7,8 +7,9 @@ var __extends = (this && this.__extends) || function (d, b) {
 var _ = require('lodash');
 var base_1 = require('../common-models/base');
 var link_1 = require('../common-models/link');
-var storage = require('./storage');
+var storage_1 = require('./storage');
 var logger = require('winston');
+var storage = new storage_1.LeagueStorage('leagues');
 var League = (function (_super) {
     __extends(League, _super);
     function League() {
@@ -59,6 +60,8 @@ var League = (function (_super) {
         logger.info('League: getById', id);
         return storage.getById(id)
             .then(function (row) {
+            if (row === null)
+                return null;
             return League.fromRow(row);
         });
     };

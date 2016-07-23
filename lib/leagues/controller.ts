@@ -1,6 +1,7 @@
 let CONFIG = require('config');
 
 import * as express from "express";
+import * as errors from '../errors';
 import { League } from './model';
 
 export function getLeagues(
@@ -50,6 +51,11 @@ export function getById(
 
     return League.getById(id)
         .then(function(item: League) {
+
+            if (item === null) {
+                return errors.itemNotFound(req, res, next);
+            }
+
             return res.json(item);
         }).catch(next);
 }

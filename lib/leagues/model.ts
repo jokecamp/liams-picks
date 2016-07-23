@@ -4,7 +4,7 @@ import * as express from "express";
 import { BaseModel } from '../common-models/base'
 import { Link } from '../common-models/link'
 
-import * as storage from './storage';
+import { LeagueStorage } from './storage';
 import * as logger from 'winston';
 
 /*
@@ -12,6 +12,9 @@ import * as logger from 'winston';
         A round cotains many Games
             A game can have a user pick
 */
+
+let storage: LeagueStorage = new LeagueStorage('leagues');
+
 export class League extends BaseModel {
 
     static ROUTE: string = 'leagues';
@@ -76,6 +79,7 @@ export class League extends BaseModel {
         logger.info('League: getById', id);
         return storage.getById(id)
             .then(function(row: Object) {
+                if (row === null) return null;
                 return League.fromRow(row);
             });
     }

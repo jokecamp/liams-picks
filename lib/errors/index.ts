@@ -13,12 +13,13 @@ export function unhandledResponse(
     logger.info('unhandledResponse');
     logger.error(err);
 
-    var msg = {
-        message: 'unhandled error',
-        error: err || null
+    var json = {
+        code: 500,
+        name: 'unhandled API error',
+        message: err || ''
     };
 
-    return res.status(500).json(msg);
+    return res.status(json.code).json(json);
 };
 
 // a non-existant route does not have an err object in signature
@@ -29,9 +30,24 @@ export function routeNotFound(
 
     logger.warn('route not found');
 
-    var msg = {
-        message: 'Route not found.'
+    var json = {
+        code: 404,
+        name: 'API Route does not exist.',
+        message: 'API Route does not exist. Check the url.'
     };
 
-    return res.status(404).json(msg);
+    return res.status(json.code).json(json);
 };
+
+export function itemNotFound(
+    req: exp.Request,
+    res: exp.Response,
+    next: exp.NextFunction) {
+
+    var json = {
+        code: 404,
+        name: 'NotFound',
+        message: 'Item not found.'
+    };
+    return res.status(json.code).json(json);
+}

@@ -1,5 +1,6 @@
 "use strict";
 var CONFIG = require('config');
+var errors = require('../errors');
 var model_1 = require('./model');
 function getLeagues(req, res, next) {
     return model_1.League.getAll()
@@ -31,6 +32,9 @@ function getById(req, res, next) {
     var id = req.params.leagueId;
     return model_1.League.getById(id)
         .then(function (item) {
+        if (item === null) {
+            return errors.itemNotFound(req, res, next);
+        }
         return res.json(item);
     }).catch(next);
 }

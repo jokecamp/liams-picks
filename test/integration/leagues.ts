@@ -6,7 +6,6 @@ let assert = chai.assert;
 import * as logger from 'winston';
 import * as app from '../../lib/server';
 
-
 let league: any = null;
 let leagueHref: string = null;
 
