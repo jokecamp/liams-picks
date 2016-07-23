@@ -5,7 +5,6 @@ import * as express from "express";
 
 // our modules
 import * as errors from './errors';
-import * as data from './data';
 
 logger.info(CONFIG);
 

@@ -28,7 +28,9 @@ export function compute(
     return false;
 };
 
-export function getPointsEarnedForGame(pick: Models.IResult, result: Models.IResult) {
+export function getPointsEarnedForGame(
+    pick: Models.IResult,
+    result: Models.IResult) {
 
     logger.info('Result: %s vs Pick: %s',
         JSON.stringify(result), JSON.stringify(pick));
