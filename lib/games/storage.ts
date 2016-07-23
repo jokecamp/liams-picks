@@ -3,6 +3,7 @@ let uuid = require('node-uuid');
 
 import * as logger from 'winston';
 import * as Models from '../models';
+import { Game } from './model';
 
 //var url = CONFIG.db.url;
 var url = 'postgres://apiuser:apiuser@localhost/football';
@@ -11,7 +12,7 @@ var pgp = require('pg-promise')();
 var db = pgp(url);
 var squel = require('squel').useFlavour('postgres');
 
-export function insert(game: Models.Game) {
+export function insert(game: Game) {
 
     game.gameId = uuid.v4();
 

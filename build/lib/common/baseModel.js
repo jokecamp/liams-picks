@@ -20,18 +20,3 @@ var BaseModel = (function () {
     return BaseModel;
 }());
 exports.BaseModel = BaseModel;
-var Link = (function () {
-    function Link(rel, href) {
-        this.rel = rel;
-        this.href = href;
-    }
-    Link.REL_SELF = 'self';
-    return Link;
-}());
-exports.Link = Link;
-var Result = (function () {
-    function Result() {
-    }
-    return Result;
-}());
-exports.Result = Result;

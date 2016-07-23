@@ -5,20 +5,22 @@ import * as _ from 'lodash';
 
 import * as Models from './models';
 
+import { Pick }  from './picks/model';
+
 export function compute(
-    picks: Array<Models.Pick>,
-    results: Array<Models.Result>) {
+    picks: Array<Pick>,
+    results: Array<Models.IResult>) {
 
     logger.info('Running scoring compute');
 
     _.each(results, function(result: any) {
 
-        let pick: Models.Pick = _.find(picks, function(p: Models.Pick) {
+        let pick: Pick = _.find(picks, function(p: Pick) {
             return p.gameId === result.gameId;
         });
 
         if (pick === null) {
-            pick = new Models.Pick();
+            pick = new Pick();
             pick.gameId = result.gameId;
         }
 

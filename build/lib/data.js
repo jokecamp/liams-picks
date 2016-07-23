@@ -1,12 +1,13 @@
 "use strict";
 var CONFIG = require('config');
 var _ = require('lodash');
-var Models = require('./models');
+var model_1 = require('./picks/model');
+var model_2 = require('./users/model');
 function getPicks() {
     var user = _.shuffle(getUsers())[0];
     var picks = [];
     for (var x = 1; x <= 10; x++) {
-        var p = new Models.Pick();
+        var p = new model_1.Pick();
         p.gameId = "100" + x;
         p.homeScore = 1;
         p.awayScore = 2;
@@ -21,7 +22,7 @@ var names = ['Joe', 'Liam', 'Pat', 'Josh', 'Adam', 'Ryan'];
 function getUsers() {
     var users = [];
     for (var x = 1; x <= 3; x++) {
-        var p = new Models.User();
+        var p = new model_2.User();
         p.userId = "20" + x;
         p.name = _.shuffle(names)[0];
         users.push(p);

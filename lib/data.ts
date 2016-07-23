@@ -2,16 +2,18 @@ let CONFIG = require('config');
 
 var _ = require('lodash');
 import * as Models from './models';
+import { Pick } from './picks/model';
+import { User } from './users/model';
 
 function getPicks() {
     // generate fake data
 
     var user = _.shuffle(getUsers())[0];
-    let picks: Array<Models.Pick> = [];
+    let picks: Array<Pick> = [];
 
     for (var x = 1; x <= 10; x++) {
 
-        let p = new Models.Pick();
+        let p = new Pick();
         p.gameId = "100" + x;
         p.homeScore = 1;
         p.awayScore = 2;
@@ -28,11 +30,11 @@ function getPicks() {
 var names = ['Joe', 'Liam', 'Pat', 'Josh', 'Adam', 'Ryan'];
 
 function getUsers() {
-    let users: Array<Models.User> = [];
+    let users: Array<User> = [];
 
     for (var x = 1; x <= 3; x++) {
 
-        let p = new Models.User();
+        let p = new User();
         p.userId = "20" + x;
         p.name = _.shuffle(names)[0];
         users.push(p);

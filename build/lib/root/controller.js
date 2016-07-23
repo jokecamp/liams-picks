@@ -3,7 +3,6 @@ var model_1 = require('./model');
 function getRoot(req, res, next) {
     var root = new model_1.Root();
     root.addLink('leagues', ['leagues']);
-    root.addLink('games', ['games']);
     root.addLink('rounds', ['rounds']);
     root.addLink('games', ['games']);
     root.addLink('picks', ['picks']);

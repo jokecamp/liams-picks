@@ -2,7 +2,7 @@
 var CONFIG = require('config');
 var logger = require('winston');
 var _ = require('lodash');
-var Models = require('./models');
+var model_1 = require('./picks/model');
 function compute(picks, results) {
     logger.info('Running scoring compute');
     _.each(results, function (result) {
@@ -10,7 +10,7 @@ function compute(picks, results) {
             return p.gameId === result.gameId;
         });
         if (pick === null) {
-            pick = new Models.Pick();
+            pick = new model_1.Pick();
             pick.gameId = result.gameId;
         }
         pick.pointsEarned = getPointsEarnedForGame(pick, result);

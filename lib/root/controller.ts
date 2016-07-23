@@ -10,7 +10,6 @@ export function getRoot(
 
     let root = new Root();
     root.addLink('leagues', ['leagues']);
-    root.addLink('games', ['games']);
     root.addLink('rounds', ['rounds']);
     root.addLink('games', ['games']);
     root.addLink('picks', ['picks']);
