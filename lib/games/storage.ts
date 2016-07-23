@@ -2,7 +2,6 @@ let CONFIG = require('config');
 let uuid = require('node-uuid');
 
 import * as logger from 'winston';
-import * as Models from '../models';
 import { Game } from './model';
 
 //var url = CONFIG.db.url;

@@ -1,4 +1,4 @@
-import { BaseModel, Link, IResult } from '../models';
+import { IResult } from '../common-models/result';
 
 export class Pick implements IResult {
 

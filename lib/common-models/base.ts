@@ -1,5 +1,7 @@
 let CONFIG = require('config');
 
+import { Link } from './link';
+
 export class BaseModel {
 
     created: string;
@@ -23,38 +25,4 @@ export class BaseModel {
         var link = new Link(rel, href)
         this.links.push(link);
     }
-}
-
-export class Link {
-    rel: string;
-    href: string;
-
-    constructor(rel: string, href: string) {
-        this.rel = rel;
-        this.href = href;
-    }
-
-    static REL_SELF: string = 'self';
-}
-
-export interface IResult {
-    gameId: string;
-    homeScore: number;
-    awayScore: number;
-}
-
-
-export class Result implements IResult {
-
-    gameId: string;
-
-    // how to handle dates?
-    when: string;
-
-    homeScore: number;
-    awayScore: number;
-
-    isFinal: boolean;
-
-    constructor() { }
 }

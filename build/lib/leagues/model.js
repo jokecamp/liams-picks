@@ -5,7 +5,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var _ = require('lodash');
-var models_1 = require('../models');
+var base_1 = require('../common-models/base');
+var link_1 = require('../common-models/link');
 var storage = require('./storage');
 var logger = require('winston');
 var League = (function (_super) {
@@ -20,7 +21,7 @@ var League = (function (_super) {
         this.leagueId = row.id;
         this.name = row.league_name;
         _super.prototype.populateFromRow.call(this, row);
-        this.addLink(models_1.Link.REL_SELF, [League.ROUTE, this.leagueId]);
+        this.addLink(link_1.Link.REL_SELF, [League.ROUTE, this.leagueId]);
     };
     League.prototype.create = function () {
         logger.info('League: create');
@@ -68,5 +69,5 @@ var League = (function (_super) {
     League.ROUTE = 'leagues';
     League.ROUTE_ID = 'leagueId';
     return League;
-}(models_1.BaseModel));
+}(base_1.BaseModel));
 exports.League = League;

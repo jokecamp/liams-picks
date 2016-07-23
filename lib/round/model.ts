@@ -1,4 +1,4 @@
-import { BaseModel, Link } from '../models';
+import { BaseModel } from '../common-models/base';
 
 export class Round extends BaseModel {
     roundId: string;

@@ -3,13 +3,12 @@ let CONFIG = require('config');
 import * as logger from 'winston';
 import * as _ from 'lodash';
 
-import * as Models from './models';
-
+import { IResult } from './common-models/result';
 import { Pick }  from './picks/model';
 
 export function compute(
     picks: Array<Pick>,
-    results: Array<Models.IResult>) {
+    results: Array<IResult>) {
 
     logger.info('Running scoring compute');
 
@@ -31,8 +30,8 @@ export function compute(
 };
 
 export function getPointsEarnedForGame(
-    pick: Models.IResult,
-    result: Models.IResult) {
+    pick: IResult,
+    result: IResult) {
 
     logger.info('Result: %s vs Pick: %s',
         JSON.stringify(result), JSON.stringify(pick));

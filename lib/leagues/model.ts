@@ -1,6 +1,9 @@
 let _ = require('lodash');
 import * as express from "express";
-import { BaseModel, Link } from '../models';
+
+import { BaseModel } from '../common-models/base'
+import { Link } from '../common-models/link'
+
 import * as storage from './storage';
 import * as logger from 'winston';
 

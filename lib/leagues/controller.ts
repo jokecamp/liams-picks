@@ -1,7 +1,6 @@
 let CONFIG = require('config');
 
 import * as express from "express";
-import * as data from '../data';
 import { League } from './model';
 
 export function getLeagues(

@@ -1,5 +1,6 @@
 let CONFIG = require('config');
-import { Link } from '../models';
+
+import { Link } from '../common-models/link';
 
 export class Root {
     links: Link[]

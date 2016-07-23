@@ -5,14 +5,14 @@ let chai = require('chai');
 let assert = chai.assert;
 
 import * as scoring from '../lib/scoring';
-import * as Models from '../lib/models';
+import { IResult } from '../lib/common-models/result';
 
 describe('Scoring', function() {
 
     it('User does not have picks = 0 points', function() {
 
-        let pick: Models.IResult = null;
-        let result: Models.IResult = {
+        let pick: IResult = null;
+        let result: IResult = {
             gameId: '123213123',
             homeScore: 0,
             awayScore: 0
@@ -23,12 +23,12 @@ describe('Scoring', function() {
 
     it('User has wrong picks = 0 points', function() {
 
-        let pick: Models.IResult = {
+        let pick: IResult = {
             gameId: '123213123',
             homeScore: 1,
             awayScore: 1
         };
-        let result: Models.IResult = {
+        let result: IResult = {
             gameId: '123213123',
             homeScore: 0,
             awayScore: 0
@@ -39,12 +39,12 @@ describe('Scoring', function() {
 
     it('User has correct picks = 3 points', function() {
 
-        let pick: Models.IResult = {
+        let pick: IResult = {
             gameId: '123213123',
             homeScore: 0,
             awayScore: 0
         };
-        let result: Models.IResult = {
+        let result: IResult = {
             gameId: '123213123',
             homeScore: 0,
             awayScore: 0
