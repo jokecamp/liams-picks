@@ -3,11 +3,13 @@ let debug = require('debug')('liams');
 let chai = require('chai');
 let assert = chai.assert;
 
-import * as logger from 'winston';
+let logger = require('winston');
 import * as app from '../../lib/server';
 
 let league: any = null;
 let leagueHref: string = null;
+
+logger.set = 'debug';
 
 describe('Leagues', function() {
 

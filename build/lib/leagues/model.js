@@ -5,10 +5,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var _ = require('lodash');
+var logger = require('winston');
 var base_1 = require('../common-models/base');
 var link_1 = require('../common-models/link');
 var storage_1 = require('./storage');
-var logger = require('winston');
 var storage = new storage_1.LeagueStorage('leagues');
 var League = (function (_super) {
     __extends(League, _super);
@@ -70,7 +70,6 @@ var League = (function (_super) {
         return storage.deleteById(id);
     };
     League.ROUTE = 'leagues';
-    League.ROUTE_ID = 'leagueId';
     return League;
 }(base_1.BaseModel));
 exports.League = League;

@@ -1,70 +1,100 @@
-"use strict";
-var CONFIG = require('config');
-var uuid = require('node-uuid');
-var logger = require('winston');
-var pgp = require('pg-promise')();
-var db = pgp(CONFIG.db.url);
-var squel = require('squel').useFlavour('postgres');
+let CONFIG = require('config');
+let uuid = require('node-uuid');
+import * as logger from 'winston';
+
+let pgp = require('pg-promise')();
+let db = pgp(CONFIG.db.url);
+let squel = require('squel').useFlavour('postgres');
+
 var squelDeafults = {
     autoQuoteFieldNames: true,
     nameQuoteCharacter: '"'
 };
-squel.registerValueHandler(Date, function (date) {
+
+squel.registerValueHandler(Date, function(date: Object) {
     return pgp.as.date(date);
 });
-var GenericStorage = (function () {
-    function GenericStorage(tableName) {
+
+/*
+    Generic Storage Methods and Utilities.
+    All storage classes should extend this base class.
+*/
+export abstract class BaseStorage {
+
+    tableName: string;
+
+    db: any;
+    squel: any;
+
+    constructor(tableName: string) {
         this.tableName = tableName;
+
+        // expose db and squel for queries
         this.db = db;
         this.squel = squel;
     }
-    GenericStorage.prototype.generateUuid = function () {
+
+    // uses v4
+    generateUuid() {
         return uuid.v4();
-    };
-    GenericStorage.prototype.getById = function (id) {
+    }
+
+    getById(id: string) {
+
         var sql = squel.select()
             .from(this.tableName)
             .where("id = ?", id)
             .where('deleted_at IS NULL')
             .toString();
+
         logger.info(sql);
         return db.oneOrNone(sql, [id]);
-    };
-    GenericStorage.prototype.getAll = function () {
+    }
+
+    getAll() {
+
         var sql = squel.select()
             .from(this.tableName)
             .where('deleted_at IS NULL')
             .toString();
+
         logger.info(sql);
         return db.query(sql);
-    };
-    GenericStorage.prototype.deleteById = function (id) {
-        if (id === null)
-            throw new Error('Id to delete is null.');
-        if (id === '')
-            throw new Error('Id to delete is empty/blank.');
+    }
+
+    /* Assumes Primary key is Id field */
+    deleteById(id: string) {
+
+        if (id === null) throw new Error('Id to delete is null.');
+        if (id === '') throw new Error('Id to delete is empty/blank.');
+
         var sql = squel.update()
             .table(this.tableName)
             .set('deleted_at', squel.str('CURRENT_TIMESTAMP'))
             .setFields(this.udpatedTimestamps())
             .where("id = ?", id)
             .toString();
+
         logger.info(sql);
         return db.none(sql);
-    };
-    GenericStorage.prototype.createdTimestamps = function () {
+    }
+
+    // the timestamps fields to apply when creating (INSERT) records
+    createdTimestamps() {
         var timestamps = {
             'created_at': this.squel.str('CURRENT_TIMESTAMP'),
             'updated_at': this.squel.str('CURRENT_TIMESTAMP')
         };
+
         return timestamps;
-    };
-    GenericStorage.prototype.udpatedTimestamps = function () {
+    }
+
+    // the timestamps fields to apply when updating (UPDATE) records
+    udpatedTimestamps() {
         var timestamps = {
             'updated_at': this.squel.str('CURRENT_TIMESTAMP')
         };
+
         return timestamps;
-    };
-    return GenericStorage;
-}());
-exports.GenericStorage = GenericStorage;
+    }
+}

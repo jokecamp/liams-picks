@@ -7,6 +7,7 @@ var logger = require('winston');
 var app = require('../../lib/server');
 var league = null;
 var leagueHref = null;
+logger.set = 'debug';
 describe('Leagues', function () {
     it('GET / root', function (done) {
         request(app)

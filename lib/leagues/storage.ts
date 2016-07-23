@@ -2,9 +2,9 @@ let CONFIG = require('config');
 
 import * as logger from 'winston';
 import { League } from './model';
-import { GenericStorage } from '../generic-storage';
+import { BaseStorage } from '../bases/storage';
 
-export class LeagueStorage extends GenericStorage {
+export class LeagueStorage extends BaseStorage {
 
     constructor(tableName: string) {
         super(tableName);

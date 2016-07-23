@@ -5,7 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var CONFIG = require('config');
-var generic_storage_1 = require('../generic-storage');
+var storage_1 = require('../bases/storage');
 var LeagueStorage = (function (_super) {
     __extends(LeagueStorage, _super);
     function LeagueStorage(tableName) {
@@ -31,5 +31,5 @@ var LeagueStorage = (function (_super) {
         return this.db.none(sql);
     };
     return LeagueStorage;
-}(generic_storage_1.GenericStorage));
+}(storage_1.BaseStorage));
 exports.LeagueStorage = LeagueStorage;

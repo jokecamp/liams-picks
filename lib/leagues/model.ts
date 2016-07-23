@@ -1,24 +1,21 @@
 let _ = require('lodash');
+import * as logger from 'winston';
 import * as express from "express";
-
 import { BaseModel } from '../common-models/base'
 import { Link } from '../common-models/link'
 
 import { LeagueStorage } from './storage';
-import * as logger from 'winston';
+let storage: LeagueStorage = new LeagueStorage('leagues');
+
 
 /*
     A league contains many Rounds.
         A round cotains many Games
             A game can have a user pick
 */
-
-let storage: LeagueStorage = new LeagueStorage('leagues');
-
 export class League extends BaseModel {
 
     static ROUTE: string = 'leagues';
-    static ROUTE_ID: string = 'leagueId';
 
     leagueId: string;
     name: string;
