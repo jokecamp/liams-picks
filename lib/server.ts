@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 
 app.use('/', require('./root'));
 app.use('/picks', require('./picks'));
+app.use('/games', require('./games'));
 app.use('/leagues', require('./leagues'));
 
 // this handler gets called as long as we use promises .catch(next)

@@ -1,5 +1,9 @@
+let _ = require('lodash');
+import * as logger from 'winston';
+import * as express from "express";
 import { IResult } from '../common-models/result';
 import { BaseModel } from '../common-models/base'
+import { Link } from '../common-models/link'
 
 import { GameStorage } from './storage';
 let storage: GameStorage = new GameStorage('games');
@@ -13,6 +17,7 @@ export class Game extends BaseModel implements IResult {
     static ROUTE: string = 'games';
 
     gameId: string;
+    roundId: string;
 
     // how to handle dates?
     when: string;
@@ -28,4 +33,92 @@ export class Game extends BaseModel implements IResult {
     }
 
     isFinal: boolean;
+
+    constructor() {
+        super();
+        this.home = {
+            team: null,
+            score: null
+        };
+        this.away = {
+            team: null,
+            score: null
+        };
+        this.isFinal = false;
+    }
+
+    populateFromRow(row: any) {
+
+        if (row === null) {
+            throw new Error('row is null');
+        }
+
+        this.gameId = row.id;
+        this.when = row.scheduled_at;
+
+        this.home.team = row.home_team,
+        this.home.score = row.home_score;
+
+        this.away.team = row.away_team,
+        this.away.score = row.away_score;
+
+        this.isFinal = row.is_final || false;
+        this.roundId = row.round_id || null;
+
+        // load the inherited class BaseModel fromRow
+        super.populateFromRow(row);
+        this.addLink(Link.REL_SELF, [Game.ROUTE, this.gameId]);
+    }
+
+    create() {
+        logger.info('Game: create');
+        let item: Game = this;
+        return storage.insert(item).then(function() {
+            return Game.getById(item.gameId);
+        });
+    }
+
+    update() {
+        logger.info('Game: update');
+        let item = this;
+        return storage.update(item).then(function() {
+            return Game.getById(item.gameId);
+        });
+    }
+
+    /* Statics */
+    static parseFromReq(req: express.Request) {
+        let game = new Game();
+        game.home.team = req.body.name;
+        return game;
+    }
+
+    static fromRow(row: Object) {
+        var game = new Game();
+        game.populateFromRow(row);
+        return game;
+    }
+
+    static getAll() {
+        logger.info('Game: getAll');
+        return storage.getAll().then(function(rows: Object[]) {
+            return _.map(rows, function(row: Object) {
+                return Game.fromRow(row);
+            });
+        });
+    }
+
+    static getById(id: string) {
+        logger.info('Game: getById', id);
+        return storage.getById(id)
+            .then(function(row: Object) {
+                if (row === null) return null;
+                return Game.fromRow(row);
+            });
+    }
+
+    static deleteById(id: string) {
+        logger.info('Game: deleteById', id);
+        return storage.deleteById(id);
+    }
 }

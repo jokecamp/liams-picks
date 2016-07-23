@@ -9,6 +9,7 @@ var app = express();
 app.use(bodyParser.json());
 app.use('/', require('./root'));
 app.use('/picks', require('./picks'));
+app.use('/games', require('./games'));
 app.use('/leagues', require('./leagues'));
 app.use(errors.unhandledResponse);
 app.use(errors.routeNotFound);

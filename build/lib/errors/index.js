@@ -2,12 +2,21 @@
 var debug = require('debug')('liams');
 var logger = require('winston');
 function unhandledResponse(err, req, res, next) {
+    logger.info(JSON.stringify(err));
     logger.info('unhandledResponse');
     logger.error(err);
+    var msg = '';
+    if (err && err.message) {
+        msg = err.message;
+    }
     var json = {
         code: 500,
         name: 'unhandled API error',
-        message: err || ''
+        message: msg,
+        error: {
+            message: err.message,
+            stack: err.stack
+        }
     };
     return res.status(json.code).json(json);
 }
