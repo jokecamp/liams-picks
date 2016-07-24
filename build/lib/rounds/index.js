@@ -1,0 +1,11 @@
+"use strict";
+var express = require('express');
+var controller_1 = require('./controller');
+var router = express.Router();
+var controller = new controller_1.RoundController();
+router.get('/', controller.getItems);
+router.post('/', controller.postItem);
+router.get('/:roundId', controller.getItemById);
+router.put('/:roundId', controller.putItemById);
+router.delete('/:roundId', controller.deleteItemById);
+module.exports = router;

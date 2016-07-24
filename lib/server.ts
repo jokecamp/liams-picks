@@ -15,6 +15,7 @@ app.use('/', require('./root'));
 app.use('/picks', require('./picks'));
 app.use('/games', require('./games'));
 app.use('/leagues', require('./leagues'));
+app.use('/rounds', require('./rounds'));
 
 // this handler gets called as long as we use promises .catch(next)
 // if not using promises you must call it yourself with try/catch

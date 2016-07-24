@@ -12,6 +12,9 @@ let leagueHref: string = null;
 let game: any = null;
 let gameHref: string = null;
 
+let round: any = null;
+let roundHref: string = null;
+
 logger.set = 'debug';
 
 describe('Leagues', function() {
@@ -76,6 +79,73 @@ describe('Leagues', function() {
 
                 if (err) {
                     logger.error(res.body);
+                    return done(err);
+                }
+                done();
+            });
+    });
+
+    it('Create Round - POST Round', function(done) {
+
+        let item = {
+            leagueId: league.leagueId,
+            number: 1
+        };
+
+        request(app)
+            .post('/rounds')
+            .set('Accept', 'application/json')
+            .expect(200)
+            .send(item)
+            .end(function(err: any, res: any) {
+
+                round = res.body;
+                console.log(round);
+                roundHref = round.links[0].href;
+
+                if (err) {
+                    logger.error(res.body);
+                    return done(err);
+                }
+                done();
+            });
+    });
+
+    it('Update Round - PUT Round', function(done) {
+
+        let item = round;
+        item.number = 2;
+
+        request(app)
+            .put(roundHref)
+            .set('Accept', 'application/json')
+            .expect(200)
+            .send(item)
+            .end(function(err: any, res: any) {
+
+                console.log(res.body);
+                var updated = res.body;
+                assert.equal(2, round.number);
+
+                if (err) {
+                    logger.error(res.body);
+                    return done(err);
+                }
+                done();
+            });
+    });
+
+    it('Delete Round - DELETE Round', function(done) {
+
+        request(app)
+            .delete(roundHref)
+            .set('Accept', 'application/json')
+            .expect(200)
+            .end(function(err: any, res: any) {
+
+                if (err) {
+                    logger.error(err);
+                    logger.error(res.body || null);
                     return done(err);
                 }
                 done();
