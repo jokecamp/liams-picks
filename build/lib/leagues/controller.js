@@ -6,43 +6,57 @@ var LeagueController = (function () {
     function LeagueController() {
     }
     LeagueController.prototype.getItems = function (req, res, next) {
-        return model_1.League.getAll()
-            .then(function (items) {
+        var resWithItems = function (items) {
             return res.json(items);
-        }).catch(next);
+        };
+        return model_1.League.getAll()
+            .then(resWithItems)
+            .catch(next);
     };
     ;
     LeagueController.prototype.postItem = function (req, res, next) {
         var league = model_1.League.parseFromReq(req);
-        return league.create()
-            .then(function (inserted) {
+        var resWithItem = function (inserted) {
             return res.json(inserted);
-        }).catch(next);
+        };
+        return league.create()
+            .then(resWithItem)
+            .catch(next);
     };
     ;
     LeagueController.prototype.putItemById = function (req, res, next) {
         var league = model_1.League.parseFromReq(req);
+        var resWithItem = function (inserted) {
+            return res.json(inserted);
+        };
         return league.update()
-            .then(function (item) {
-            return res.json(item);
-        }).catch(next);
+            .then(resWithItem)
+            .catch(next);
     };
     LeagueController.prototype.getItemById = function (req, res, next) {
         var id = req.params.leagueId;
-        return model_1.League.getById(id)
-            .then(function (item) {
+        var resWithItem = function (item) {
             if (item === null) {
                 return errors.itemNotFound(req, res, next);
             }
             return res.json(item);
-        }).catch(next);
+        };
+        return model_1.League.getById(id)
+            .then(resWithItem)
+            .catch(next);
     };
     LeagueController.prototype.deleteItemById = function (req, res, next) {
         var id = req.params.leagueId;
+        var resWithOk = function () {
+            var json = {
+                code: 200,
+                message: 'item was deleted'
+            };
+            return res.json(json);
+        };
         return model_1.League.deleteById(id)
-            .then(function () {
-            return res.json({});
-        }).catch(next);
+            .then(resWithOk)
+            .catch(next);
     };
     return LeagueController;
 }());

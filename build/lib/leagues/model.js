@@ -47,26 +47,22 @@ var League = (function (_super) {
         return league;
     };
     League.fromRow = function (row) {
+        if (row === null)
+            return null;
         var league = new League();
         league.populateFromRow(row);
         return league;
     };
+    League.fromRows = function (rows) {
+        return _.map(rows, League.fromRow);
+    };
     League.getAll = function () {
         logger.info('League: getAll');
-        return storage.getAll().then(function (rows) {
-            return _.map(rows, function (row) {
-                return League.fromRow(row);
-            });
-        });
+        return storage.getAll().then(League.fromRows);
     };
     League.getById = function (id) {
         logger.info('League: getById', id);
-        return storage.getById(id)
-            .then(function (row) {
-            if (row === null)
-                return null;
-            return League.fromRow(row);
-        });
+        return storage.getById(id).then(League.fromRow);
     };
     League.deleteById = function (id) {
         logger.info('League: deleteById', id);

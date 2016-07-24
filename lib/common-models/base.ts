@@ -1,5 +1,5 @@
 let CONFIG = require('config');
-
+import * as logger from 'winston';
 import { Link } from './link';
 
 export class BaseModel {
@@ -8,6 +8,9 @@ export class BaseModel {
     modified: string;
     deleted: string;
     links: Link[];
+
+    constructor() {
+    }
 
     isDeleted() {
         return this.deleted !== null && this.deleted > '';

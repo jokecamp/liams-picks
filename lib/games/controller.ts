@@ -12,10 +12,13 @@ export class GameController implements IRestController {
         res: express.Response,
         next: express.NextFunction) {
 
+        let resWithItems = function(items: Game[]) {
+            return res.json(items);
+        }
+
         return Game.getAll()
-            .then(function(items: Game[]) {
-                return res.json(items);
-            }).catch(next);
+            .then(resWithItems)
+            .catch(next);
     };
 
     postItem(
@@ -25,10 +28,13 @@ export class GameController implements IRestController {
 
         let game = Game.parseFromReq(req);
 
+        let resWithItem = function(inserted: Game) {
+            return res.json(inserted);
+        };
+
         return game.create()
-            .then(function(inserted: Game) {
-                return res.json(inserted);
-            }).catch(next);
+            .then(resWithItem)
+            .catch(next);
     };
 
     putItemById(
@@ -38,10 +44,13 @@ export class GameController implements IRestController {
 
         let game = Game.parseFromReq(req);
 
+        let resWithItem = function(inserted: Game) {
+            return res.json(inserted);
+        };
+
         return game.update()
-            .then(function(item: Game) {
-                return res.json(item);
-            }).catch(next);
+            .then(resWithItem)
+            .catch(next);
     }
 
     getItemById(
@@ -51,15 +60,17 @@ export class GameController implements IRestController {
 
         var id = req.params.gameId;
 
+        // prepare the successul func
+        let resWithItem = function(item: Game) {
+            if (item === null) {
+                return errors.itemNotFound(req, res, next);
+            }
+            return res.json(item);
+        };
+
         return Game.getById(id)
-            .then(function(item: Game) {
-
-                if (item === null) {
-                    return errors.itemNotFound(req, res, next);
-                }
-
-                return res.json(item);
-            }).catch(next);
+            .then(resWithItem)
+            .catch(next);
     }
 
     deleteItemById(
@@ -69,9 +80,16 @@ export class GameController implements IRestController {
 
         var id = req.params.gameId;
 
+        let resWithOk = function() {
+            var json = {
+                code: 200,
+                message: 'item was deleted'
+            };
+            return res.json(json);
+        };
+
         return Game.deleteById(id)
-            .then(function() {
-                return res.json({});
-            }).catch(next);
+            .then(resWithOk)
+            .catch(next);
     }
 }

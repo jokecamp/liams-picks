@@ -62,10 +62,10 @@ export class Game extends BaseModel implements IResult {
         this.roundId = row.round_id;
 
         this.home.team = row.home_team,
-        this.home.score = row.home_score;
+            this.home.score = row.home_score;
 
         this.away.team = row.away_team,
-        this.away.score = row.away_score;
+            this.away.score = row.away_score;
 
         this.isFinal = row.is_final || false;
         this.roundId = row.round_id || null;
@@ -113,27 +113,25 @@ export class Game extends BaseModel implements IResult {
     }
 
     static fromRow(row: Object) {
+        if (row === null) return null;
+
         var game = new Game();
         game.populateFromRow(row);
         return game;
     }
 
+    static fromRows(rows: Object[]) {
+        return _.map(rows, Game.fromRow);
+    }
+
     static getAll() {
         logger.info('Game: getAll');
-        return storage.getAll().then(function(rows: Object[]) {
-            return _.map(rows, function(row: Object) {
-                return Game.fromRow(row);
-            });
-        });
+        return storage.getAll().then(Game.fromRows);
     }
 
     static getById(id: string) {
         logger.info('Game: getById', id);
-        return storage.getById(id)
-            .then(function(row: Object) {
-                if (row === null) return null;
-                return Game.fromRow(row);
-            });
+        return storage.getById(id).then(Game.fromRow);
     }
 
     static deleteById(id: string) {

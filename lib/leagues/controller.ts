@@ -12,10 +12,13 @@ export class LeagueController implements IRestController {
         res: express.Response,
         next: express.NextFunction) {
 
+        let resWithItems = function(items: League[]) {
+            return res.json(items);
+        }
+
         return League.getAll()
-            .then(function(items: League[]) {
-                return res.json(items);
-            }).catch(next);
+            .then(resWithItems)
+            .catch(next);
     };
 
     postItem(
@@ -25,10 +28,13 @@ export class LeagueController implements IRestController {
 
         let league = League.parseFromReq(req);
 
+        let resWithItem = function(inserted: League) {
+            return res.json(inserted);
+        };
+
         return league.create()
-            .then(function(inserted: League) {
-                return res.json(inserted);
-            }).catch(next);
+            .then(resWithItem)
+            .catch(next);
     };
 
     putItemById(
@@ -38,10 +44,13 @@ export class LeagueController implements IRestController {
 
         let league = League.parseFromReq(req);
 
+        let resWithItem = function(inserted: League) {
+            return res.json(inserted);
+        };
+
         return league.update()
-            .then(function(item: League) {
-                return res.json(item);
-            }).catch(next);
+            .then(resWithItem)
+            .catch(next);
     }
 
     getItemById(
@@ -51,15 +60,16 @@ export class LeagueController implements IRestController {
 
         var id = req.params.leagueId;
 
+        let resWithItem = function(item: League) {
+            if (item === null) {
+                return errors.itemNotFound(req, res, next);
+            }
+            return res.json(item);
+        };
+
         return League.getById(id)
-            .then(function(item: League) {
-
-                if (item === null) {
-                    return errors.itemNotFound(req, res, next);
-                }
-
-                return res.json(item);
-            }).catch(next);
+            .then(resWithItem)
+            .catch(next);
     }
 
     deleteItemById(
@@ -69,9 +79,16 @@ export class LeagueController implements IRestController {
 
         var id = req.params.leagueId;
 
+        let resWithOk = function() {
+            var json = {
+                code: 200,
+                message: 'item was deleted'
+            };
+            return res.json(json);
+        };
+
         return League.deleteById(id)
-            .then(function() {
-                return res.json({});
-            }).catch(next);
+            .then(resWithOk)
+            .catch(next);
     }
 }

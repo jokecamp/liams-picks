@@ -27,7 +27,7 @@ describe('Leagues', function () {
     });
     it('Create League - POST League', function (done) {
         var item = {
-            name: 'Mock League',
+            name: 'Mock League'
         };
         request(app)
             .post('/leagues')

@@ -62,27 +62,25 @@ export class League extends BaseModel {
     }
 
     static fromRow(row: Object) {
+        if (row === null) return null;
+
         var league = new League();
         league.populateFromRow(row);
         return league;
     }
 
+    static fromRows(rows: Object[]) {
+        return _.map(rows, League.fromRow);
+    }
+
     static getAll() {
         logger.info('League: getAll');
-        return storage.getAll().then(function(rows: Object[]) {
-            return _.map(rows, function(row: Object) {
-                return League.fromRow(row);
-            });
-        });
+        return storage.getAll().then(League.fromRows);
     }
 
     static getById(id: string) {
         logger.info('League: getById', id);
-        return storage.getById(id)
-            .then(function(row: Object) {
-                if (row === null) return null;
-                return League.fromRow(row);
-            });
+        return storage.getById(id).then(League.fromRow);
     }
 
     static deleteById(id: string) {

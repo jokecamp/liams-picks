@@ -72,26 +72,22 @@ var Game = (function (_super) {
         return game;
     };
     Game.fromRow = function (row) {
+        if (row === null)
+            return null;
         var game = new Game();
         game.populateFromRow(row);
         return game;
     };
+    Game.fromRows = function (rows) {
+        return _.map(rows, Game.fromRow);
+    };
     Game.getAll = function () {
         logger.info('Game: getAll');
-        return storage.getAll().then(function (rows) {
-            return _.map(rows, function (row) {
-                return Game.fromRow(row);
-            });
-        });
+        return storage.getAll().then(Game.fromRows);
     };
     Game.getById = function (id) {
         logger.info('Game: getById', id);
-        return storage.getById(id)
-            .then(function (row) {
-            if (row === null)
-                return null;
-            return Game.fromRow(row);
-        });
+        return storage.getById(id).then(Game.fromRow);
     };
     Game.deleteById = function (id) {
         logger.info('Game: deleteById', id);
