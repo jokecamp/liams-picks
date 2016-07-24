@@ -107,7 +107,8 @@ DROP TABLE IF EXISTS round_games;
 CREATE TABLE IF NOT EXISTS round_games
 (
   id uuid NOT NULL,
-  roundId uuid NOT NULL,
+  round_id uuid NOT NULL,
+  game_id uuid NOT NULL,
   created_at timestamp with time zone NOT NULL,
   updated_at timestamp with time zone NOT NULL,
   deleted_at timestamp with time zone,
