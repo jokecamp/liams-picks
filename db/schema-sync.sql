@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS picks
   home_score integer,
   away_score integer,
   is_bonus boolean DEFAULT false,
+  points_earned decimal NULL,
   created_at timestamp with time zone NOT NULL,
   updated_at timestamp with time zone NOT NULL,
   deleted_at timestamp with time zone,
