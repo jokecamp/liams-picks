@@ -1,6 +1,11 @@
 "use strict";
 var express = require('express');
-var controller = require('./controller');
+var controller_1 = require('./controller');
 var router = express.Router();
-router.get('/', controller.getPicks);
+var controller = new controller_1.PickController();
+router.get('/', controller.getItems);
+router.post('/', controller.postItem);
+router.get('/:pickId', controller.getItemById);
+router.put('/:pickId', controller.putItemById);
+router.delete('/:pickId', controller.deleteItemById);
 module.exports = router;
