@@ -14,6 +14,8 @@ var pick = null;
 var pickHref = null;
 var round = null;
 var roundHref = null;
+var user = null;
+var userHref = null;
 logger.set = 'debug';
 describe('Leagues', function () {
     it('GET / root', function (done) {
@@ -23,6 +25,28 @@ describe('Leagues', function () {
             .expect(200)
             .end(function (err, res) {
             debug(res.body);
+            if (err) {
+                logger.error(res.body);
+                return done(err);
+            }
+            done();
+        });
+    });
+    it('Create User League Owner', function (done) {
+        var item = {
+            name: 'John Doe',
+            username: 'jdoe',
+            email: 'jdoe@gmail.com'
+        };
+        request(app)
+            .post('/users')
+            .set('Accept', 'application/json')
+            .expect(200)
+            .send(item)
+            .end(function (err, res) {
+            user = res.body;
+            console.log(user);
+            userHref = user.links[0].href;
             if (err) {
                 logger.error(res.body);
                 return done(err);
@@ -166,7 +190,7 @@ describe('Leagues', function () {
     });
     it('Create Pick - POST Pick', function (done) {
         var item = {
-            userId: userId,
+            userId: user.userId,
             gameId: game.gameId,
             home: {
                 score: 2

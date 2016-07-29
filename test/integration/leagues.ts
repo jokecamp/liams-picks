@@ -20,6 +20,9 @@ let pickHref: string = null;
 let round: any = null;
 let roundHref: string = null;
 
+let user: any = null;
+let userHref: string = null;
+
 logger.set = 'debug';
 
 describe('Leagues', function() {
@@ -33,6 +36,33 @@ describe('Leagues', function() {
             .end(function(err: any, res: any) {
 
                 debug(res.body);
+
+                if (err) {
+                    logger.error(res.body);
+                    return done(err);
+                }
+                done();
+            });
+    });
+
+    it('Create User League Owner', function(done) {
+
+        let item = {
+            name: 'John Doe',
+            username: 'jdoe',
+            email: 'jdoe@gmail.com'
+        };
+
+        request(app)
+            .post('/users')
+            .set('Accept', 'application/json')
+            .expect(200)
+            .send(item)
+            .end(function(err: any, res: any) {
+
+                user = res.body;
+                console.log(user);
+                userHref = user.links[0].href;
 
                 if (err) {
                     logger.error(res.body);
@@ -210,7 +240,7 @@ describe('Leagues', function() {
     it('Create Pick - POST Pick', function(done) {
 
         let item = {
-            userId: userId,
+            userId: user.userId,
             gameId: game.gameId,
             home: {
                 score: 2
@@ -259,8 +289,6 @@ describe('Leagues', function() {
                 done();
             });
     });
-
-
 
     it.skip('Delete Round - DELETE Round', function(done) {
 
