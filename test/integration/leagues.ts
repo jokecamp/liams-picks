@@ -6,11 +6,16 @@ let assert = chai.assert;
 let logger = require('winston');
 import * as app from '../../lib/server';
 
+let userId: string = '2bb5687c-0895-4497-a25d-6d1bce4bcd04';
+
 let league: any = null;
 let leagueHref: string = null;
 
 let game: any = null;
 let gameHref: string = null;
+
+let pick: any = null;
+let pickHref: string = null;
 
 let round: any = null;
 let roundHref: string = null;
@@ -135,7 +140,129 @@ describe('Leagues', function() {
             });
     });
 
-    it('Delete Round - DELETE Round', function(done) {
+    it('Create Game - POST Game', function(done) {
+
+        let item = {
+            roundId: round.roundId,
+            home: {
+                team: 'Manchester United',
+                score: 3
+            },
+            away: {
+                team: 'Arsenal',
+                score: 0
+            },
+            isFinal: true,
+            when: new Date()
+        };
+
+        request(app)
+            .post('/games')
+            .set('Accept', 'application/json')
+            .expect(200)
+            .send(item)
+            .end(function(err: any, res: any) {
+
+                game = res.body;
+                console.log(game);
+                gameHref = game.links[0].href
+
+                assert.equal('Manchester United', game.home.team);
+                assert.equal('Arsenal', game.away.team);
+                assert.equal(3, game.home.score);
+                assert.equal(0, game.away.score);
+                assert.isTrue(game.when !== null);
+                assert.equal(round.roundId, game.roundId);
+                assert.equal(true, game.isFinal);
+
+                if (err) {
+                    logger.error(res.body);
+                    return done(err);
+                }
+                done();
+            });
+    });
+
+    it('Update Game - PUT Game', function(done) {
+
+        let item = game;
+        item.when = new Date();
+
+        request(app)
+            .put(gameHref)
+            .set('Accept', 'application/json')
+            .expect(200)
+            .send(item)
+            .end(function(err: any, res: any) {
+
+                console.log(res.body);
+                var updated = res.body;
+                //assert.equal('Mock League Updated', updated.name);
+
+                if (err) {
+                    logger.error(res.body);
+                    return done(err);
+                }
+                done();
+            });
+    });
+
+    it('Create Pick - POST Pick', function(done) {
+
+        let item = {
+            userId: userId,
+            gameId: game.gameId,
+            home: {
+                score: 2
+            },
+            away: {
+                score: 1
+            },
+            isFinal: true
+        };
+
+        request(app)
+            .post('/picks')
+            .set('Accept', 'application/json')
+            .expect(200)
+            .send(item)
+            .end(function(err: any, res: any) {
+
+                pick = res.body;
+                console.log(pick);
+                pickHref = pick.links[0].href
+
+                assert.equal(3, game.home.score);
+                assert.equal(0, game.away.score);
+
+                if (err) {
+                    logger.error(res.body);
+                    return done(err);
+                }
+                done();
+            });
+    });
+
+    it.skip('Delete Game - DELETE Game', function(done) {
+
+        request(app)
+            .delete(gameHref)
+            .set('Accept', 'application/json')
+            .expect(200)
+            .end(function(err: any, res: any) {
+
+                if (err) {
+                    logger.error(err);
+                    logger.error(res.body || null);
+                    return done(err);
+                }
+                done();
+            });
+    });
+
+
+
+    it.skip('Delete Round - DELETE Round', function(done) {
 
         request(app)
             .delete(roundHref)
@@ -152,7 +279,7 @@ describe('Leagues', function() {
             });
     });
 
-    it('Delete League - DELETE League', function(done) {
+    it.skip('Delete League - DELETE League', function(done) {
 
         request(app)
             .delete(leagueHref)

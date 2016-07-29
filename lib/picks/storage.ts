@@ -21,8 +21,8 @@ export class PicksStorage extends BaseStorage {
             .set("user_id", pick.userId || null)
             .set("home_score", pick.home.score)
             .set("away_score", pick.away.score)
-            .set("is_bonus", pick.isBonus)
-            .set("points_earned", pick.pointsEarned)
+            .set("is_bonus", pick.isBonus || false)
+            .set("points_earned", pick.pointsEarned || null)
             .setFields(this.createdTimestamps())
             .toString();
 
@@ -42,8 +42,8 @@ export class PicksStorage extends BaseStorage {
             .set("user_id", pick.userId || null)
             .set("home_score", pick.home.score)
             .set("away_score", pick.away.score)
-            .set("is_bonus", pick.isBonus)
-            .set("points_earned", pick.pointsEarned)
+            .set("is_bonus", pick.isBonus || false)
+            .set("points_earned", pick.pointsEarned || null)
             .setFields(this.udpatedTimestamps())
             .where("id = ?", pick.pickId)
             .toString();

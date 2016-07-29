@@ -32,6 +32,7 @@ var Pick = (function (_super) {
         this.gameId = row.game_id;
         this.home.score = row.home_score;
         this.away.score = row.away_score;
+        this.isBonus = row.is_bonus;
         _super.prototype.populateFromRow.call(this, row);
         this.addLink(link_1.Link.REL_SELF, [Pick.ROUTE, this.pickId]);
     };

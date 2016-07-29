@@ -5,10 +5,13 @@ var chai = require('chai');
 var assert = chai.assert;
 var logger = require('winston');
 var app = require('../../lib/server');
+var userId = '2bb5687c-0895-4497-a25d-6d1bce4bcd04';
 var league = null;
 var leagueHref = null;
 var game = null;
 var gameHref = null;
+var pick = null;
+var pickHref = null;
 var round = null;
 var roundHref = null;
 logger.set = 'debug';
@@ -29,7 +32,7 @@ describe('Leagues', function () {
     });
     it('Create League - POST League', function (done) {
         var item = {
-            name: 'Mock League'
+            name: 'Mock League',
         };
         request(app)
             .post('/leagues')
@@ -106,7 +109,106 @@ describe('Leagues', function () {
             done();
         });
     });
-    it('Delete Round - DELETE Round', function (done) {
+    it('Create Game - POST Game', function (done) {
+        var item = {
+            roundId: round.roundId,
+            home: {
+                team: 'Manchester United',
+                score: 3
+            },
+            away: {
+                team: 'Arsenal',
+                score: 0
+            },
+            isFinal: true,
+            when: new Date()
+        };
+        request(app)
+            .post('/games')
+            .set('Accept', 'application/json')
+            .expect(200)
+            .send(item)
+            .end(function (err, res) {
+            game = res.body;
+            console.log(game);
+            gameHref = game.links[0].href;
+            assert.equal('Manchester United', game.home.team);
+            assert.equal('Arsenal', game.away.team);
+            assert.equal(3, game.home.score);
+            assert.equal(0, game.away.score);
+            assert.isTrue(game.when !== null);
+            assert.equal(round.roundId, game.roundId);
+            assert.equal(true, game.isFinal);
+            if (err) {
+                logger.error(res.body);
+                return done(err);
+            }
+            done();
+        });
+    });
+    it('Update Game - PUT Game', function (done) {
+        var item = game;
+        item.when = new Date();
+        request(app)
+            .put(gameHref)
+            .set('Accept', 'application/json')
+            .expect(200)
+            .send(item)
+            .end(function (err, res) {
+            console.log(res.body);
+            var updated = res.body;
+            if (err) {
+                logger.error(res.body);
+                return done(err);
+            }
+            done();
+        });
+    });
+    it('Create Pick - POST Pick', function (done) {
+        var item = {
+            userId: userId,
+            gameId: game.gameId,
+            home: {
+                score: 2
+            },
+            away: {
+                score: 1
+            },
+            isFinal: true
+        };
+        request(app)
+            .post('/picks')
+            .set('Accept', 'application/json')
+            .expect(200)
+            .send(item)
+            .end(function (err, res) {
+            pick = res.body;
+            console.log(pick);
+            pickHref = pick.links[0].href;
+            assert.equal(3, game.home.score);
+            assert.equal(0, game.away.score);
+            if (err) {
+                logger.error(res.body);
+                return done(err);
+            }
+            done();
+        });
+    });
+    it.skip('Delete Game - DELETE Game', function (done) {
+        request(app)
+            .delete(gameHref)
+            .set('Accept', 'application/json')
+            .expect(200)
+            .end(function (err, res) {
+            if (err) {
+                logger.error(err);
+                logger.error(res.body || null);
+                return done(err);
+            }
+            done();
+        });
+    });
+    it.skip('Delete Round - DELETE Round', function (done) {
         request(app)
             .delete(roundHref)
             .set('Accept', 'application/json')
@@ -120,7 +222,7 @@ describe('Leagues', function () {
             done();
         });
     });
-    it('Delete League - DELETE League', function (done) {
+    it.skip('Delete League - DELETE League', function (done) {
         request(app)
             .delete(leagueHref)
             .set('Accept', 'application/json')

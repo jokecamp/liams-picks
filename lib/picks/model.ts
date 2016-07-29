@@ -51,6 +51,7 @@ export class Pick extends BaseModel implements IResult {
         this.gameId = row.game_id;
         this.home.score = row.home_score;
         this.away.score = row.away_score;
+        this.isBonus = row.is_bonus;
 
         // load the inherited class BaseModel fromRow
         super.populateFromRow(row);
