@@ -1,10 +1,12 @@
 let _ = require('lodash');
+let Promise = require('bluebird');
 import * as logger from 'winston';
 import * as express from "express";
 import { BaseModel } from '../common-models/base'
 import { Link } from '../common-models/link'
 
-import { LeagueStorage,LeagueRow } from './storage';
+import { LeagueUser } from '../league-users/model';
+import { LeagueStorage, LeagueRow } from './storage';
 let storage: LeagueStorage = new LeagueStorage('leagues');
 
 /*
@@ -18,6 +20,8 @@ export class League extends BaseModel {
 
     leagueId: string;
     name: string;
+
+    users: LeagueUser[];
 
     populateFromRow(row: any) {
 
@@ -80,7 +84,16 @@ export class League extends BaseModel {
 
     static getById(id: string) {
         logger.info('League: getById', id);
-        return storage.getById(id).then(League.fromRow);
+
+        var getById = storage.getById(id).then(League.fromRow);
+        var getUsers = LeagueUser.getAllByLeague(id);
+
+        var joinPromises = function(league: League, users: LeagueUser[]) {
+            league.users = users;
+            return league;
+        };
+
+        return Promise.join(getById, getUsers, joinPromises);
     }
 
     static deleteById(id: string) {

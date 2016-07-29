@@ -25,7 +25,7 @@ export class LeagueUser extends BaseModel {
         logger.info('League: create');
         let item: LeagueUser = this;
         return storage.insert(item).then(function() {
-            return LeagueUser.getById(item.leagueId);
+            return LeagueUser.getById(item.leagueUserId);
         });
     }
 
@@ -33,7 +33,7 @@ export class LeagueUser extends BaseModel {
         logger.info('League: update');
         let item = this;
         return storage.update(item).then(function() {
-            return LeagueUser.getById(item.leagueId);
+            return LeagueUser.getById(item.leagueUserId);
         });
     }
 
@@ -79,6 +79,11 @@ export class LeagueUser extends BaseModel {
 
     static fromRows(rows: LeagueUserRow[]) {
         return _.map(rows, LeagueUser.fromRow);
+    }
+
+    static getAllByLeague(leagueId: string) {
+        logger.info('LeagueUser: getAllByLeague');
+        return storage.getAllByLeague(leagueId).then(LeagueUser.fromRows);
     }
 
     static getAll() {

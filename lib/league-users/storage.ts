@@ -27,6 +27,18 @@ export class LeagueUserStorage extends BaseStorage {
         super(tableName);
     }
 
+    getAllByLeague(leagueId: string) {
+
+        var sql = this.squel.select()
+            .from(this.tableName)
+            .where('league_id = ?', leagueId)
+            .where('deleted_at IS NULL')
+            .toString();
+
+        logger.info(sql);
+        return this.db.query(sql);
+    }
+
     insert(leagueUser: LeagueUser) {
 
         leagueUser.leagueUserId = this.generateUuid();

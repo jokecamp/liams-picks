@@ -5,6 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var CONFIG = require('config');
+var logger = require('winston');
 var storage_1 = require('../bases/storage');
 var columns = {
     id: 'id',
@@ -23,6 +24,15 @@ var LeagueUserStorage = (function (_super) {
     function LeagueUserStorage(tableName) {
         _super.call(this, tableName);
     }
+    LeagueUserStorage.prototype.getAllByLeague = function (leagueId) {
+        var sql = this.squel.select()
+            .from(this.tableName)
+            .where('league_id = ?', leagueId)
+            .where('deleted_at IS NULL')
+            .toString();
+        logger.info(sql);
+        return this.db.query(sql);
+    };
     LeagueUserStorage.prototype.insert = function (leagueUser) {
         leagueUser.leagueUserId = this.generateUuid();
         var sql = this.squel.insert()

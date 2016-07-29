@@ -19,14 +19,14 @@ var LeagueUser = (function (_super) {
         logger.info('League: create');
         var item = this;
         return storage.insert(item).then(function () {
-            return LeagueUser.getById(item.leagueId);
+            return LeagueUser.getById(item.leagueUserId);
         });
     };
     LeagueUser.prototype.update = function () {
         logger.info('League: update');
         var item = this;
         return storage.update(item).then(function () {
-            return LeagueUser.getById(item.leagueId);
+            return LeagueUser.getById(item.leagueUserId);
         });
     };
     LeagueUser.parseFromReq = function (req) {
@@ -59,6 +59,10 @@ var LeagueUser = (function (_super) {
     };
     LeagueUser.fromRows = function (rows) {
         return _.map(rows, LeagueUser.fromRow);
+    };
+    LeagueUser.getAllByLeague = function (leagueId) {
+        logger.info('LeagueUser: getAllByLeague');
+        return storage.getAllByLeague(leagueId).then(LeagueUser.fromRows);
     };
     LeagueUser.getAll = function () {
         logger.info('LeagueUser: getAll');

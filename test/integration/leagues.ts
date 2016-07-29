@@ -23,6 +23,9 @@ let roundHref: string = null;
 let user: any = null;
 let userHref: string = null;
 
+let leagueUser: any = null;
+let leagueUserHref: string = null;
+
 logger.set = 'debug';
 
 describe('Leagues', function() {
@@ -88,6 +91,33 @@ describe('Leagues', function() {
                 league = res.body;
                 console.log(league);
                 leagueHref = league.links[0].href;
+
+                if (err) {
+                    logger.error(res.body);
+                    return done(err);
+                }
+                done();
+            });
+    });
+
+    it('Set a League Admin', function(done) {
+
+        let item = {
+            userId: user.userId,
+            leagueId: league.leagueId,
+            isAdmin: true
+        };
+
+        request(app)
+            .post('/league-users')
+            .set('Accept', 'application/json')
+            .expect(200)
+            .send(item)
+            .end(function(err: any, res: any) {
+
+                leagueUser = res.body;
+                console.log(leagueUser);
+                leagueUserHref = leagueUser.links[0].href;
 
                 if (err) {
                     logger.error(res.body);

@@ -16,6 +16,8 @@ var round = null;
 var roundHref = null;
 var user = null;
 var userHref = null;
+var leagueUser = null;
+var leagueUserHref = null;
 logger.set = 'debug';
 describe('Leagues', function () {
     it('GET / root', function (done) {
@@ -56,7 +58,7 @@ describe('Leagues', function () {
     });
     it('Create League - POST League', function (done) {
         var item = {
-            name: 'Mock League'
+            name: 'Mock League',
         };
         request(app)
             .post('/leagues')
@@ -67,6 +69,28 @@ describe('Leagues', function () {
             league = res.body;
             console.log(league);
             leagueHref = league.links[0].href;
+            if (err) {
+                logger.error(res.body);
+                return done(err);
+            }
+            done();
+        });
+    });
+    it('Set a League Admin', function (done) {
+        var item = {
+            userId: user.userId,
+            leagueId: league.leagueId,
+            isAdmin: true
+        };
+        request(app)
+            .post('/league-users')
+            .set('Accept', 'application/json')
+            .expect(200)
+            .send(item)
+            .end(function (err, res) {
+            leagueUser = res.body;
+            console.log(leagueUser);
+            leagueUserHref = leagueUser.links[0].href;
             if (err) {
                 logger.error(res.body);
                 return done(err);
