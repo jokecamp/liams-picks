@@ -6,6 +6,12 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var CONFIG = require('config');
 var storage_1 = require('../bases/storage');
+var LeagueRow = (function () {
+    function LeagueRow() {
+    }
+    return LeagueRow;
+}());
+exports.LeagueRow = LeagueRow;
 var LeagueStorage = (function (_super) {
     __extends(LeagueStorage, _super);
     function LeagueStorage(tableName) {

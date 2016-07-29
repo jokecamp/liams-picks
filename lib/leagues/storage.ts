@@ -4,6 +4,11 @@ import * as logger from 'winston';
 import { League } from './model';
 import { BaseStorage } from '../bases/storage';
 
+export class LeagueRow {
+    id: string;
+    League_name: string;
+}
+
 export class LeagueStorage extends BaseStorage {
 
     constructor(tableName: string) {

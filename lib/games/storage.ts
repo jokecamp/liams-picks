@@ -4,6 +4,17 @@ import * as logger from 'winston';
 import { Game } from './model';
 import { BaseStorage } from '../bases/storage';
 
+export class GameRow {
+    id: string;
+    round_id: string;
+    scheduled_at: string;
+    home_score: number;
+    away_score: number;
+    home_team: string;
+    away_team: string;
+    is_final : boolean;
+}
+
 export class GameStorage extends BaseStorage {
 
     constructor(tableName: string) {

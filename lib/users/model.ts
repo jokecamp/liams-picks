@@ -4,7 +4,7 @@ import * as express from "express";
 import { BaseModel } from '../common-models/base'
 import { Link } from '../common-models/link'
 
-import { UserStorage } from './storage';
+import { UserStorage, UserRow } from './storage';
 let storage: UserStorage = new UserStorage('users');
 
 export class User extends BaseModel {
@@ -20,14 +20,14 @@ export class User extends BaseModel {
         this.name = null;
         this.email = null;
     }
-    populateFromRow(row: any) {
+    populateFromRow(row: UserRow) {
 
         if (row === null) {
             throw new Error('row is null');
         }
 
         this.userId = row.id;
-        this.name = row.name;
+        this.name = row.username;
         this.email = row.email;
 
         // load the inherited class BaseModel fromRow
@@ -65,7 +65,7 @@ export class User extends BaseModel {
         return round;
     }
 
-    static fromRow(row: Object) {
+    static fromRow(row: UserRow) {
         if (row === null) return null;
 
         var round = new User();
@@ -73,7 +73,7 @@ export class User extends BaseModel {
         return round;
     }
 
-    static fromRows(rows: Object[]) {
+    static fromRows(rows: UserRow[]) {
         return _.map(rows, User.fromRow);
     }
 

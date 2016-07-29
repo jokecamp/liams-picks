@@ -5,7 +5,7 @@ import { Link } from '../common-models/link'
 import { BaseModel } from '../common-models/base'
 import { IResult } from '../common-models/result';
 
-import { PicksStorage } from './storage';
+import { PicksStorage, PickRow } from './storage';
 let storage: PicksStorage = new PicksStorage('picks');
 
 export class Pick extends BaseModel implements IResult {
@@ -30,6 +30,7 @@ export class Pick extends BaseModel implements IResult {
     constructor() {
         super();
 
+        this.pickId = null;
         this.home = {
             score: null
         };
@@ -40,14 +41,14 @@ export class Pick extends BaseModel implements IResult {
         this.pointsEarned = null;
     }
 
-    populateFromRow(row: any) {
+    populateFromRow(row: PickRow) {
 
         if (row === null) {
             throw new Error('row is null');
         }
 
+        this.pickId = row.id;
         this.userId = row.user_id;
-        this.pickId = row.pick_id;
         this.gameId = row.game_id;
         this.home.score = row.home_score;
         this.away.score = row.away_score;
@@ -92,7 +93,7 @@ export class Pick extends BaseModel implements IResult {
         return pick;
     }
 
-    static fromRow(row: Object) {
+    static fromRow(row: PickRow) {
         if (row === null) return null;
 
         var pick = new Pick();

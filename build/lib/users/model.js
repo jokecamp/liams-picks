@@ -23,7 +23,7 @@ var User = (function (_super) {
             throw new Error('row is null');
         }
         this.userId = row.id;
-        this.name = row.name;
+        this.name = row.username;
         this.email = row.email;
         _super.prototype.populateFromRow.call(this, row);
         this.addLink(link_1.Link.REL_SELF, [User.ROUTE, this.userId]);

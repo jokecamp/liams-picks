@@ -4,7 +4,7 @@ import * as express from "express";
 import { BaseModel } from '../common-models/base'
 import { Link } from '../common-models/link'
 
-import { LeagueStorage } from './storage';
+import { LeagueStorage,LeagueRow } from './storage';
 let storage: LeagueStorage = new LeagueStorage('leagues');
 
 /*
@@ -61,7 +61,7 @@ export class League extends BaseModel {
         return league;
     }
 
-    static fromRow(row: Object) {
+    static fromRow(row: LeagueRow) {
         if (row === null) return null;
 
         var league = new League();
@@ -69,7 +69,7 @@ export class League extends BaseModel {
         return league;
     }
 
-    static fromRows(rows: Object[]) {
+    static fromRows(rows: LeagueRow[]) {
         return _.map(rows, League.fromRow);
     }
 

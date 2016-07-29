@@ -7,6 +7,12 @@ var __extends = (this && this.__extends) || function (d, b) {
 var CONFIG = require('config');
 var logger = require('winston');
 var storage_1 = require('../bases/storage');
+var UserRow = (function () {
+    function UserRow() {
+    }
+    return UserRow;
+}());
+exports.UserRow = UserRow;
 var UserStorage = (function (_super) {
     __extends(UserStorage, _super);
     function UserStorage(tableName) {

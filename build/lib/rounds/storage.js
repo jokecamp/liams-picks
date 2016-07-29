@@ -7,6 +7,12 @@ var __extends = (this && this.__extends) || function (d, b) {
 var CONFIG = require('config');
 var logger = require('winston');
 var storage_1 = require('../bases/storage');
+var RoundRow = (function () {
+    function RoundRow() {
+    }
+    return RoundRow;
+}());
+exports.RoundRow = RoundRow;
 var RoundStorage = (function (_super) {
     __extends(RoundStorage, _super);
     function RoundStorage(tableName) {

@@ -4,6 +4,16 @@ import * as logger from 'winston';
 import { Pick } from './model';
 import { BaseStorage } from '../bases/storage';
 
+export class PickRow {
+    id: string;
+    game_id: string;
+    user_id: string;
+    home_score: number;
+    away_score: number;
+    is_bonus: boolean;
+    points_earned: number;
+}
+
 export class PicksStorage extends BaseStorage {
 
     constructor(tableName: string) {

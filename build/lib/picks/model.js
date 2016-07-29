@@ -14,6 +14,7 @@ var Pick = (function (_super) {
     __extends(Pick, _super);
     function Pick() {
         _super.call(this);
+        this.pickId = null;
         this.home = {
             score: null
         };
@@ -27,8 +28,8 @@ var Pick = (function (_super) {
         if (row === null) {
             throw new Error('row is null');
         }
+        this.pickId = row.id;
         this.userId = row.user_id;
-        this.pickId = row.pick_id;
         this.gameId = row.game_id;
         this.home.score = row.home_score;
         this.away.score = row.away_score;

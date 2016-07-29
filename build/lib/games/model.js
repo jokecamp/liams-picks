@@ -34,10 +34,10 @@ var Game = (function (_super) {
         this.gameId = row.id;
         this.when = row.scheduled_at;
         this.roundId = row.round_id;
-        this.home.team = row.home_team,
-            this.home.score = row.home_score;
-        this.away.team = row.away_team,
-            this.away.score = row.away_score;
+        this.home.team = row.home_team;
+        this.home.score = row.home_score;
+        this.away.team = row.away_team;
+        this.away.score = row.away_score;
         this.isFinal = row.is_final || false;
         this.roundId = row.round_id || null;
         _super.prototype.populateFromRow.call(this, row);

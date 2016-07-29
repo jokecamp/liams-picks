@@ -7,6 +7,12 @@ var __extends = (this && this.__extends) || function (d, b) {
 var CONFIG = require('config');
 var logger = require('winston');
 var storage_1 = require('../bases/storage');
+var PickRow = (function () {
+    function PickRow() {
+    }
+    return PickRow;
+}());
+exports.PickRow = PickRow;
 var PicksStorage = (function (_super) {
     __extends(PicksStorage, _super);
     function PicksStorage(tableName) {

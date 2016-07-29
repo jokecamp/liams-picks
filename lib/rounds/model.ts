@@ -4,7 +4,7 @@ import * as express from "express";
 import { BaseModel } from '../common-models/base'
 import { Link } from '../common-models/link'
 
-import { RoundStorage } from './storage';
+import { RoundStorage, RoundRow } from './storage';
 let storage: RoundStorage = new RoundStorage('rounds');
 
 export class Round extends BaseModel {
@@ -20,7 +20,7 @@ export class Round extends BaseModel {
         this.leagueId = null;
         this.number = null;
     }
-    populateFromRow(row: any) {
+    populateFromRow(row: RoundRow) {
 
         if (row === null) {
             throw new Error('row is null');
@@ -65,7 +65,7 @@ export class Round extends BaseModel {
         return round;
     }
 
-    static fromRow(row: Object) {
+    static fromRow(row: RoundRow) {
         if (row === null) return null;
 
         var round = new Round();
@@ -73,7 +73,7 @@ export class Round extends BaseModel {
         return round;
     }
 
-    static fromRows(rows: Object[]) {
+    static fromRows(rows: RoundRow[]) {
         return _.map(rows, Round.fromRow);
     }
 

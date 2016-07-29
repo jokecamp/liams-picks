@@ -5,7 +5,7 @@ import { IResult } from '../common-models/result';
 import { BaseModel } from '../common-models/base'
 import { Link } from '../common-models/link'
 
-import { GameStorage } from './storage';
+import { GameStorage, GameRow } from './storage';
 let storage: GameStorage = new GameStorage('games');
 
 /*
@@ -51,7 +51,7 @@ export class Game extends BaseModel implements IResult {
         this.isFinal = false;
     }
 
-    populateFromRow(row: any) {
+    populateFromRow(row: GameRow) {
 
         if (row === null) {
             throw new Error('row is null');
@@ -61,11 +61,11 @@ export class Game extends BaseModel implements IResult {
         this.when = row.scheduled_at;
         this.roundId = row.round_id;
 
-        this.home.team = row.home_team,
-            this.home.score = row.home_score;
+        this.home.team = row.home_team;
+        this.home.score = row.home_score;
 
-        this.away.team = row.away_team,
-            this.away.score = row.away_score;
+        this.away.team = row.away_team;
+        this.away.score = row.away_score;
 
         this.isFinal = row.is_final || false;
         this.roundId = row.round_id || null;
@@ -112,7 +112,7 @@ export class Game extends BaseModel implements IResult {
         return game;
     }
 
-    static fromRow(row: Object) {
+    static fromRow(row: GameRow) {
         if (row === null) return null;
 
         var game = new Game();

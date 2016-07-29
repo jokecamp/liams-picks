@@ -4,6 +4,12 @@ import * as logger from 'winston';
 import { Round } from './model';
 import { BaseStorage } from '../bases/storage';
 
+export class RoundRow {
+    id: string;
+    league_id: string;
+    num: number;
+}
+
 export class RoundStorage extends BaseStorage {
 
     constructor(tableName: string) {

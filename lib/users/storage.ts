@@ -4,6 +4,12 @@ import * as logger from 'winston';
 import { User } from './model';
 import { BaseStorage } from '../bases/storage';
 
+export class UserRow {
+    id: string;
+    username: string;
+    email: string;
+}
+
 export class UserStorage extends BaseStorage {
 
     constructor(tableName: string) {
