@@ -81,20 +81,16 @@ export abstract class BaseStorage {
 
     // the timestamps fields to apply when creating (INSERT) records
     createdTimestamps() {
-        var timestamps = {
+        return {
             'created_at': this.squel.str('CURRENT_TIMESTAMP'),
             'updated_at': this.squel.str('CURRENT_TIMESTAMP')
         };
-
-        return timestamps;
     }
 
     // the timestamps fields to apply when updating (UPDATE) records
     udpatedTimestamps() {
-        var timestamps = {
+        return {
             'updated_at': this.squel.str('CURRENT_TIMESTAMP')
         };
-
-        return timestamps;
     }
 }

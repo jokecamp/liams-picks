@@ -4,6 +4,14 @@ import * as logger from 'winston';
 import { League } from './model';
 import { BaseStorage } from '../bases/storage';
 
+// allow us to use strongly typed column names
+// reduce the amount of errors
+let columns = {
+    id: 'id',
+    league_name: 'league_name'
+};
+
+
 export class LeagueRow {
     id: string;
     League_name: string;
@@ -21,8 +29,8 @@ export class LeagueStorage extends BaseStorage {
 
         var sql = this.squel.insert()
             .into(this.tableName)
-            .set("id", league.leagueId)
-            .set("league_name", league.name)
+            .set(columns.id, league.leagueId)
+            .set(columns.league_name, league.name)
             .setFields(this.createdTimestamps())
             .toString();
 
@@ -33,7 +41,7 @@ export class LeagueStorage extends BaseStorage {
 
         var sql = this.squel.update()
             .table(this.tableName)
-            .set("league_name", league.name)
+            .set(columns.league_name, league.name)
             .setFields(this.udpatedTimestamps())
             .where("id = ?", league.leagueId)
             .toString();

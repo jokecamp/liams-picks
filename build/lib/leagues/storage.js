@@ -6,6 +6,10 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var CONFIG = require('config');
 var storage_1 = require('../bases/storage');
+var columns = {
+    id: 'id',
+    league_name: 'league_name'
+};
 var LeagueRow = (function () {
     function LeagueRow() {
     }
@@ -21,8 +25,8 @@ var LeagueStorage = (function (_super) {
         league.leagueId = this.generateUuid();
         var sql = this.squel.insert()
             .into(this.tableName)
-            .set("id", league.leagueId)
-            .set("league_name", league.name)
+            .set(columns.id, league.leagueId)
+            .set(columns.league_name, league.name)
             .setFields(this.createdTimestamps())
             .toString();
         return this.db.none(sql);
@@ -30,7 +34,7 @@ var LeagueStorage = (function (_super) {
     LeagueStorage.prototype.update = function (league) {
         var sql = this.squel.update()
             .table(this.tableName)
-            .set("league_name", league.name)
+            .set(columns.league_name, league.name)
             .setFields(this.udpatedTimestamps())
             .where("id = ?", league.leagueId)
             .toString();

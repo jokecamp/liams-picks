@@ -4,6 +4,18 @@ import * as logger from 'winston';
 import { Game } from './model';
 import { BaseStorage } from '../bases/storage';
 
+let columns = {
+    id: 'id',
+    round_id: 'round_id',
+    scheduled_at: 'scheduled_at',
+    home_score: 'home_score',
+    away_score: 'away_score',
+    home_team: 'home_team',
+    away_team: 'away_team',
+    is_final: 'is_final'
+};
+
+
 export class GameRow {
     id: string;
     round_id: string;
@@ -12,7 +24,7 @@ export class GameRow {
     away_score: number;
     home_team: string;
     away_team: string;
-    is_final : boolean;
+    is_final: boolean;
 }
 
 export class GameStorage extends BaseStorage {
@@ -29,14 +41,14 @@ export class GameStorage extends BaseStorage {
 
         var sql = this.squel.insert()
             .into(this.tableName)
-            .set("id", game.gameId)
-            .set("round_id", game.roundId || null)
-            .set("scheduled_at", game.when || null)
-            .set("home_score", game.home.score)
-            .set("away_score", game.away.score)
-            .set("home_team", game.home.team)
-            .set("away_team", game.away.team)
-            .set("is_final", game.isFinal || false)
+            .set(columns.id, game.gameId)
+            .set(columns.round_id, game.roundId || null)
+            .set(columns.scheduled_at, game.when || null)
+            .set(columns.home_score, game.home.score)
+            .set(columns.away_score, game.away.score)
+            .set(columns.home_team, game.home.team)
+            .set(columns.away_team, game.away.team)
+            .set(columns.is_final, game.isFinal || false)
             .setFields(this.createdTimestamps())
             .toString();
 
@@ -52,13 +64,13 @@ export class GameStorage extends BaseStorage {
 
         var sql = this.squel.update()
             .table(this.tableName)
-            .set("round_id", game.roundId || null)
-            .set("scheduled_at", game.when || null)
-            .set("home_score", game.home.score)
-            .set("away_score", game.away.score)
-            .set("home_team", game.home.team)
-            .set("away_team", game.away.team)
-            .set("is_final", game.isFinal || false)
+            .set(columns.round_id, game.roundId || null)
+            .set(columns.scheduled_at, game.when || null)
+            .set(columns.home_score, game.home.score)
+            .set(columns.away_score, game.away.score)
+            .set(columns.home_team, game.home.team)
+            .set(columns.away_team, game.away.team)
+            .set(columns.is_final, game.isFinal || false)
             .setFields(this.udpatedTimestamps())
             .where("id = ?", game.gameId)
             .toString();

@@ -4,6 +4,12 @@ import * as logger from 'winston';
 import { User } from './model';
 import { BaseStorage } from '../bases/storage';
 
+let columns = {
+    id: 'id',
+    username: 'username',
+    email: 'email'
+};
+
 export class UserRow {
     id: string;
     username: string;
@@ -22,9 +28,9 @@ export class UserStorage extends BaseStorage {
 
         var sql = this.squel.insert()
             .into(this.tableName)
-            .set("id", user.userId)
-            .set("username", user.name)
-            .set("email", user.email)
+            .set(columns.id, user.userId)
+            .set(columns.username, user.name)
+            .set(columns.email, user.email)
             .setFields(this.createdTimestamps())
             .toString();
 
@@ -40,8 +46,8 @@ export class UserStorage extends BaseStorage {
 
         var sql = this.squel.update()
             .table(this.tableName)
-            .set("username", user.name)
-            .set("email", user.email)
+            .set(columns.username, user.name)
+            .set(columns.email, user.email)
             .setFields(this.udpatedTimestamps())
             .where("id = ?", user.userId)
             .toString();

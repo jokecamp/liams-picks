@@ -7,6 +7,16 @@ var __extends = (this && this.__extends) || function (d, b) {
 var CONFIG = require('config');
 var logger = require('winston');
 var storage_1 = require('../bases/storage');
+var columns = {
+    id: 'id',
+    round_id: 'round_id',
+    scheduled_at: 'scheduled_at',
+    home_score: 'home_score',
+    away_score: 'away_score',
+    home_team: 'home_team',
+    away_team: 'away_team',
+    is_final: 'is_final'
+};
 var GameRow = (function () {
     function GameRow() {
     }
@@ -24,14 +34,14 @@ var GameStorage = (function (_super) {
             game.when = null;
         var sql = this.squel.insert()
             .into(this.tableName)
-            .set("id", game.gameId)
-            .set("round_id", game.roundId || null)
-            .set("scheduled_at", game.when || null)
-            .set("home_score", game.home.score)
-            .set("away_score", game.away.score)
-            .set("home_team", game.home.team)
-            .set("away_team", game.away.team)
-            .set("is_final", game.isFinal || false)
+            .set(columns.id, game.gameId)
+            .set(columns.round_id, game.roundId || null)
+            .set(columns.scheduled_at, game.when || null)
+            .set(columns.home_score, game.home.score)
+            .set(columns.away_score, game.away.score)
+            .set(columns.home_team, game.home.team)
+            .set(columns.away_team, game.away.team)
+            .set(columns.is_final, game.isFinal || false)
             .setFields(this.createdTimestamps())
             .toString();
         logger.info(sql);
@@ -44,13 +54,13 @@ var GameStorage = (function (_super) {
     GameStorage.prototype.update = function (game) {
         var sql = this.squel.update()
             .table(this.tableName)
-            .set("round_id", game.roundId || null)
-            .set("scheduled_at", game.when || null)
-            .set("home_score", game.home.score)
-            .set("away_score", game.away.score)
-            .set("home_team", game.home.team)
-            .set("away_team", game.away.team)
-            .set("is_final", game.isFinal || false)
+            .set(columns.round_id, game.roundId || null)
+            .set(columns.scheduled_at, game.when || null)
+            .set(columns.home_score, game.home.score)
+            .set(columns.away_score, game.away.score)
+            .set(columns.home_team, game.home.team)
+            .set(columns.away_team, game.away.team)
+            .set(columns.is_final, game.isFinal || false)
             .setFields(this.udpatedTimestamps())
             .where("id = ?", game.gameId)
             .toString();

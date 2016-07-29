@@ -7,6 +7,11 @@ var __extends = (this && this.__extends) || function (d, b) {
 var CONFIG = require('config');
 var logger = require('winston');
 var storage_1 = require('../bases/storage');
+var columns = {
+    id: 'id',
+    username: 'username',
+    email: 'email'
+};
 var UserRow = (function () {
     function UserRow() {
     }
@@ -22,9 +27,9 @@ var UserStorage = (function (_super) {
         user.userId = this.generateUuid();
         var sql = this.squel.insert()
             .into(this.tableName)
-            .set("id", user.userId)
-            .set("username", user.name)
-            .set("email", user.email)
+            .set(columns.id, user.userId)
+            .set(columns.username, user.name)
+            .set(columns.email, user.email)
             .setFields(this.createdTimestamps())
             .toString();
         logger.info(sql);
@@ -37,8 +42,8 @@ var UserStorage = (function (_super) {
     UserStorage.prototype.update = function (user) {
         var sql = this.squel.update()
             .table(this.tableName)
-            .set("username", user.name)
-            .set("email", user.email)
+            .set(columns.username, user.name)
+            .set(columns.email, user.email)
             .setFields(this.udpatedTimestamps())
             .where("id = ?", user.userId)
             .toString();

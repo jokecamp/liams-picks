@@ -4,6 +4,12 @@ import * as logger from 'winston';
 import { Round } from './model';
 import { BaseStorage } from '../bases/storage';
 
+let columns = {
+    id: 'id',
+    league_id: 'league_id',
+    num: 'num'
+};
+
 export class RoundRow {
     id: string;
     league_id: string;
@@ -22,9 +28,9 @@ export class RoundStorage extends BaseStorage {
 
         var sql = this.squel.insert()
             .into(this.tableName)
-            .set("id", round.roundId)
-            .set("league_id", round.leagueId || null)
-            .set("num", round.number || null)
+            .set(columns.id, round.roundId)
+            .set(columns.league_id, round.leagueId || null)
+            .set(columns.num, round.number || null)
             .setFields(this.createdTimestamps())
             .toString();
 
@@ -40,8 +46,8 @@ export class RoundStorage extends BaseStorage {
 
         var sql = this.squel.update()
             .table(this.tableName)
-            .set("league_id", round.leagueId || null)
-            .set("num", round.number || null)
+            .set(columns.league_id, round.leagueId || null)
+            .set(columns.num, round.number || null)
             .setFields(this.udpatedTimestamps())
             .where("id = ?", round.roundId)
             .toString();

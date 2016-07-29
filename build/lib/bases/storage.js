@@ -53,17 +53,15 @@ var BaseStorage = (function () {
         return db.none(sql);
     };
     BaseStorage.prototype.createdTimestamps = function () {
-        var timestamps = {
+        return {
             'created_at': this.squel.str('CURRENT_TIMESTAMP'),
             'updated_at': this.squel.str('CURRENT_TIMESTAMP')
         };
-        return timestamps;
     };
     BaseStorage.prototype.udpatedTimestamps = function () {
-        var timestamps = {
+        return {
             'updated_at': this.squel.str('CURRENT_TIMESTAMP')
         };
-        return timestamps;
     };
     return BaseStorage;
 }());
