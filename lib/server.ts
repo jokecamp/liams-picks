@@ -18,6 +18,8 @@ app.use('/games', require('./games'));
 app.use('/leagues', require('./leagues'));
 app.use('/rounds', require('./rounds'));
 
+app.use('/league-users', require('./league-users'));
+
 // this handler gets called as long as we use promises .catch(next)
 // if not using promises you must call it yourself with try/catch
 app.use(errors.unhandledResponse);

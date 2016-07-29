@@ -117,3 +117,17 @@ CREATE TABLE IF NOT EXISTS round_games
   CONSTRAINT round_games_id PRIMARY KEY (id)
 )
 WITH (OIDS=FALSE);
+
+DROP TABLE IF EXISTS league_users;
+CREATE TABLE IF NOT EXISTS league_users
+(
+  id uuid NOT NULL,
+  league_id uuid NOT NULL,
+  user_id uuid NOT NULL,
+  is_admin boolean default false,
+  created_at timestamp with time zone NOT NULL,
+  updated_at timestamp with time zone NOT NULL,
+  deleted_at timestamp with time zone,
+  CONSTRAINT league_users_id PRIMARY KEY (id)
+)
+WITH (OIDS=FALSE);

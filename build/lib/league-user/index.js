@@ -1,0 +1,11 @@
+"use strict";
+var express = require('express');
+var controller_1 = require('./controller');
+var router = express.Router();
+var controller = new controller_1.LeagueUserController();
+router.get('/', controller.getItems);
+router.post('/', controller.postItem);
+router.get('/league-users/:leagueUserId', controller.getItemById);
+router.put('/league-users/:leagueUserId', controller.putItemById);
+router.delete('/league-users/:leagueUserId', controller.deleteItemById);
+module.exports = router;

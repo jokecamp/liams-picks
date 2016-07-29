@@ -48,5 +48,4 @@ export class LeagueStorage extends BaseStorage {
 
         return this.db.none(sql);
     }
-
 }

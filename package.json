@@ -9,7 +9,7 @@
     "clean": "rm -rf ./build",
     "tsc": "tsc --listFiles",
     "db": "postgres -D /usr/local/var/postgres",
-    "deploy-db": "psql  -d football -a -f ./db/schema-sync.sql"
+    "schema": "psql  -d football -a -f ./db/schema-sync.sql"
   },
   "author": "",
   "license": "ISC",
