@@ -7,13 +7,13 @@ import { BaseStorage } from '../bases/storage';
 let columns = {
     id: 'id',
     league_id: 'league_id',
-    num: 'num'
+    number: 'number'
 };
 
 export class RoundRow {
     id: string;
     league_id: string;
-    num: number;
+    number: number;
 }
 
 export class RoundStorage extends BaseStorage {
@@ -30,7 +30,7 @@ export class RoundStorage extends BaseStorage {
             .into(this.tableName)
             .set(columns.id, round.roundId)
             .set(columns.league_id, round.leagueId || null)
-            .set(columns.num, round.number || null)
+            .set(columns.number, round.number || null)
             .setFields(this.createdTimestamps())
             .toString();
 
@@ -47,7 +47,7 @@ export class RoundStorage extends BaseStorage {
         var sql = this.squel.update()
             .table(this.tableName)
             .set(columns.league_id, round.leagueId || null)
-            .set(columns.num, round.number || null)
+            .set(columns.number, round.number || null)
             .setFields(this.udpatedTimestamps())
             .where("id = ?", round.roundId)
             .toString();

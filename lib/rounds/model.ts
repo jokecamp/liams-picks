@@ -28,7 +28,7 @@ export class Round extends BaseModel {
 
         this.roundId = row.id;
         this.leagueId = row.league_id;
-        this.number = row.num;
+        this.number = row.number;
 
         // load the inherited class BaseModel fromRow
         super.populateFromRow(row);

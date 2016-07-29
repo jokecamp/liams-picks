@@ -24,7 +24,7 @@ var Round = (function (_super) {
         }
         this.roundId = row.id;
         this.leagueId = row.league_id;
-        this.number = row.num;
+        this.number = row.number;
         _super.prototype.populateFromRow.call(this, row);
         this.addLink(link_1.Link.REL_SELF, [Round.ROUTE, this.roundId]);
     };

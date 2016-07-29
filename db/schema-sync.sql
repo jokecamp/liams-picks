@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS rounds
 (
   id uuid NOT NULL,
   league_id uuid NOT NULL,
-  num integer NOT NULL,
+  "number" integer NOT NULL,
   created_at timestamp with time zone NOT NULL,
   updated_at timestamp with time zone NOT NULL,
   deleted_at timestamp with time zone,
