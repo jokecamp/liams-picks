@@ -28,6 +28,11 @@ var GameStorage = (function (_super) {
     function GameStorage(tableName) {
         _super.call(this, tableName);
     }
+    GameStorage.prototype.getAllByLeague = function (leagueId) {
+        var sql = 'select g.* from games g inner join rounds r on r.id = g.round_id where r.league_id = $1';
+        logger.info(sql);
+        return this.db.query(sql, [leagueId]);
+    };
     GameStorage.prototype.insert = function (game) {
         game.gameId = this.generateUuid();
         if (!game.when)

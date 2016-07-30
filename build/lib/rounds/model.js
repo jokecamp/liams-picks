@@ -61,6 +61,11 @@ var Round = (function (_super) {
     Round.fromRows = function (rows) {
         return _.map(rows, Round.fromRow);
     };
+    Round.getAllByLeague = function (leagueId) {
+        logger.info('Round: getAllByLeague');
+        return storage.getAllByLeague(leagueId)
+            .then(Round.fromRows);
+    };
     Round.getAll = function () {
         logger.info('Round: getAll');
         return storage.getAll().then(Round.fromRows);

@@ -10,6 +10,8 @@ var logger = require('winston');
 var base_1 = require('../common-models/base');
 var link_1 = require('../common-models/link');
 var model_1 = require('../league-users/model');
+var model_2 = require('../rounds/model');
+var model_3 = require('../games/model');
 var storage_1 = require('./storage');
 var storage = new storage_1.LeagueStorage('leagues');
 var League = (function (_super) {
@@ -66,11 +68,17 @@ var League = (function (_super) {
         logger.info('League: getById', id);
         var getById = storage.getById(id).then(League.fromRow);
         var getUsers = model_1.LeagueUser.getAllByLeague(id);
-        var joinPromises = function (league, users) {
+        var getRounds = model_2.Round.getAllByLeague(id);
+        var getGames = model_3.Game.getAllByLeague(id);
+        var joinPromises = function (league, users, rounds, games) {
             league.users = users;
+            league.rounds = rounds;
+            _.each(league.rounds, function (r) {
+                r.games = _.filter(games, { roundId: r.roundId });
+            });
             return league;
         };
-        return Promise.join(getById, getUsers, joinPromises);
+        return Promise.join(getById, getUsers, getRounds, getGames, joinPromises);
     };
     League.deleteById = function (id) {
         logger.info('League: deleteById', id);

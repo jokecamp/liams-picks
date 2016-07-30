@@ -23,6 +23,15 @@ var RoundStorage = (function (_super) {
     function RoundStorage(tableName) {
         _super.call(this, tableName);
     }
+    RoundStorage.prototype.getAllByLeague = function (leagueId) {
+        var sql = this.squel.select()
+            .from(this.tableName)
+            .where('league_id = ?', leagueId)
+            .where('deleted_at IS NULL')
+            .toString();
+        logger.info(sql);
+        return this.db.query(sql);
+    };
     RoundStorage.prototype.insert = function (round) {
         round.roundId = this.generateUuid();
         var sql = this.squel.insert()

@@ -4,6 +4,8 @@ import * as express from "express";
 import { BaseModel } from '../common-models/base'
 import { Link } from '../common-models/link'
 
+import { Game } from '../games/model'
+
 import { RoundStorage, RoundRow } from './storage';
 let storage: RoundStorage = new RoundStorage('rounds');
 
@@ -13,6 +15,8 @@ export class Round extends BaseModel {
     roundId: string;
     leagueId: string;
     number: number;
+
+    games: Game[]
 
     constructor() {
         super();
@@ -75,6 +79,12 @@ export class Round extends BaseModel {
 
     static fromRows(rows: RoundRow[]) {
         return _.map(rows, Round.fromRow);
+    }
+
+    static getAllByLeague(leagueId: string) {
+        logger.info('Round: getAllByLeague');
+        return storage.getAllByLeague(leagueId)
+            .then(Round.fromRows);
     }
 
     static getAll() {

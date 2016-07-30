@@ -124,6 +124,12 @@ export class Game extends BaseModel implements IResult {
         return _.map(rows, Game.fromRow);
     }
 
+    static getAllByLeague(leagueId: string) {
+        logger.info('Game: getAllByLeague');
+        return storage.getAllByLeague(leagueId)
+            .then(Game.fromRows);
+    }
+
     static getAll() {
         logger.info('Game: getAll');
         return storage.getAll().then(Game.fromRows);

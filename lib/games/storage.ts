@@ -33,6 +33,14 @@ export class GameStorage extends BaseStorage {
         super(tableName);
     }
 
+    getAllByLeague(leagueId: string) {
+
+        var sql = 'select g.* from games g inner join rounds r on r.id = g.round_id where r.league_id = $1';
+        logger.info(sql);
+        return this.db.query(sql, [leagueId]);
+    }
+
+
     insert(game: Game) {
 
         game.gameId = this.generateUuid();

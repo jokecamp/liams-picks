@@ -6,6 +6,9 @@ import { BaseModel } from '../common-models/base'
 import { Link } from '../common-models/link'
 
 import { LeagueUser } from '../league-users/model';
+import { Round } from '../rounds/model';
+import { Game } from '../games/model';
+
 import { LeagueStorage, LeagueRow } from './storage';
 let storage: LeagueStorage = new LeagueStorage('leagues');
 
@@ -22,6 +25,7 @@ export class League extends BaseModel {
     name: string;
 
     users: LeagueUser[];
+    rounds: Round[];
 
     populateFromRow(row: any) {
 
@@ -85,15 +89,29 @@ export class League extends BaseModel {
     static getById(id: string) {
         logger.info('League: getById', id);
 
-        var getById = storage.getById(id).then(League.fromRow);
-        var getUsers = LeagueUser.getAllByLeague(id);
+        let getById = storage.getById(id).then(League.fromRow);
+        let getUsers = LeagueUser.getAllByLeague(id);
+        let getRounds = Round.getAllByLeague(id);
+        let getGames = Game.getAllByLeague(id);
 
-        var joinPromises = function(league: League, users: LeagueUser[]) {
+        var joinPromises = function(
+            league: League,
+            users: LeagueUser[],
+            rounds: Round[],
+            games: Game[]) {
+
             league.users = users;
+            league.rounds = rounds;
+
+            _.each(league.rounds, function(r: Round) {
+                r.games = _.filter(games, { roundId: r.roundId });
+            });
+
             return league;
         };
 
-        return Promise.join(getById, getUsers, joinPromises);
+        return Promise.join(getById, getUsers, getRounds, getGames,
+            joinPromises);
     }
 
     static deleteById(id: string) {

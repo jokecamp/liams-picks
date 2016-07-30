@@ -81,6 +81,11 @@ var Game = (function (_super) {
     Game.fromRows = function (rows) {
         return _.map(rows, Game.fromRow);
     };
+    Game.getAllByLeague = function (leagueId) {
+        logger.info('Game: getAllByLeague');
+        return storage.getAllByLeague(leagueId)
+            .then(Game.fromRows);
+    };
     Game.getAll = function () {
         logger.info('Game: getAll');
         return storage.getAll().then(Game.fromRows);
