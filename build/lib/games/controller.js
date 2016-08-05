@@ -17,7 +17,6 @@ var GameController = (function () {
     ;
     GameController.prototype.postItem = function (req, res, next) {
         var game = model_1.Game.parseFromReq(req);
-        logger.info(game);
         var resWithItem = function (inserted) {
             return res.json(inserted);
         };

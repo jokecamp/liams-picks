@@ -7,13 +7,15 @@ import { BaseStorage } from '../bases/storage';
 let columns = {
     id: 'id',
     league_id: 'league_id',
-    number: 'number'
+    number: 'number',
+    deadline_at: 'deadline_at'
 };
 
 export class RoundRow {
     id: string;
     league_id: string;
     number: number;
+    deadline_at: string;
 }
 
 export class RoundStorage extends BaseStorage {
@@ -43,6 +45,7 @@ export class RoundStorage extends BaseStorage {
             .set(columns.id, round.roundId)
             .set(columns.league_id, round.leagueId || null)
             .set(columns.number, round.number || null)
+            .set(columns.deadline_at, round.deadline || null)
             .setFields(this.createdTimestamps())
             .toString();
 
@@ -60,6 +63,7 @@ export class RoundStorage extends BaseStorage {
             .table(this.tableName)
             .set(columns.league_id, round.leagueId || null)
             .set(columns.number, round.number || null)
+            .set(columns.deadline_at, round.deadline || null)
             .setFields(this.udpatedTimestamps())
             .where("id = ?", round.roundId)
             .toString();

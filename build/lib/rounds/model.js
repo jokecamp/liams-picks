@@ -17,6 +17,7 @@ var Round = (function (_super) {
         this.roundId = null;
         this.leagueId = null;
         this.number = null;
+        this.deadline = null;
     }
     Round.prototype.populateFromRow = function (row) {
         if (row === null) {
@@ -25,6 +26,7 @@ var Round = (function (_super) {
         this.roundId = row.id;
         this.leagueId = row.league_id;
         this.number = row.number;
+        this.deadline = row.deadline_at;
         _super.prototype.populateFromRow.call(this, row);
         this.addLink(link_1.Link.REL_SELF, [Round.ROUTE, this.roundId]);
     };
@@ -49,6 +51,7 @@ var Round = (function (_super) {
         }
         round.leagueId = req.body.leagueId;
         round.number = req.body.number;
+        round.deadline = req.body.deadline || null;
         return round;
     };
     Round.fromRow = function (row) {

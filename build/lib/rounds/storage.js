@@ -10,7 +10,8 @@ var storage_1 = require('../bases/storage');
 var columns = {
     id: 'id',
     league_id: 'league_id',
-    number: 'number'
+    number: 'number',
+    deadline_at: 'deadline_at'
 };
 var RoundRow = (function () {
     function RoundRow() {
@@ -39,6 +40,7 @@ var RoundStorage = (function (_super) {
             .set(columns.id, round.roundId)
             .set(columns.league_id, round.leagueId || null)
             .set(columns.number, round.number || null)
+            .set(columns.deadline_at, round.deadline || null)
             .setFields(this.createdTimestamps())
             .toString();
         logger.info(sql);
@@ -53,6 +55,7 @@ var RoundStorage = (function (_super) {
             .table(this.tableName)
             .set(columns.league_id, round.leagueId || null)
             .set(columns.number, round.number || null)
+            .set(columns.deadline_at, round.deadline || null)
             .setFields(this.udpatedTimestamps())
             .where("id = ?", round.roundId)
             .toString();

@@ -229,8 +229,8 @@ describe('Leagues', function() {
 
                 assert.equal('Manchester United', game.home.team);
                 assert.equal('Arsenal', game.away.team);
-                assert.equal(3, game.home.score);
-                assert.equal(0, game.away.score);
+                assert.equal(3, game.home.score, 'home score wrong');
+                assert.equal(0, game.away.score, 'away score wrong');
                 assert.isTrue(game.when !== null);
                 assert.equal(round.roundId, game.roundId);
                 assert.equal(true, game.isFinal);

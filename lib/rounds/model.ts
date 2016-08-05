@@ -15,6 +15,7 @@ export class Round extends BaseModel {
     roundId: string;
     leagueId: string;
     number: number;
+    deadline: string;
 
     games: Game[]
 
@@ -23,6 +24,7 @@ export class Round extends BaseModel {
         this.roundId = null;
         this.leagueId = null;
         this.number = null;
+        this.deadline = null;
     }
     populateFromRow(row: RoundRow) {
 
@@ -33,6 +35,7 @@ export class Round extends BaseModel {
         this.roundId = row.id;
         this.leagueId = row.league_id;
         this.number = row.number;
+        this.deadline = row.deadline_at;
 
         // load the inherited class BaseModel fromRow
         super.populateFromRow(row);
@@ -65,6 +68,7 @@ export class Round extends BaseModel {
 
         round.leagueId = req.body.leagueId;
         round.number = req.body.number;
+        round.deadline = req.body.deadline || null;
 
         return round;
     }
