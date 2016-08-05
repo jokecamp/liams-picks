@@ -1,5 +1,6 @@
 "use strict";
 var CONFIG = require('config');
+var logger = require('winston');
 var errors = require('../errors');
 var model_1 = require('./model');
 var GameController = (function () {
@@ -16,6 +17,7 @@ var GameController = (function () {
     ;
     GameController.prototype.postItem = function (req, res, next) {
         var game = model_1.Game.parseFromReq(req);
+        logger.info(game);
         var resWithItem = function (inserted) {
             return res.json(inserted);
         };

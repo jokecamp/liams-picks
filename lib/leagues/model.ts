@@ -100,12 +100,14 @@ export class League extends BaseModel {
             rounds: Round[],
             games: Game[]) {
 
-            league.users = users;
-            league.rounds = rounds;
+            if (league) {
+                league.users = users;
+                league.rounds = rounds;
 
-            _.each(league.rounds, function(r: Round) {
-                r.games = _.filter(games, { roundId: r.roundId });
-            });
+                _.each(league.rounds, function(r: Round) {
+                    r.games = _.filter(games, { roundId: r.roundId });
+                });
+            }
 
             return league;
         };

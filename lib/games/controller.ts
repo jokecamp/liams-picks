@@ -1,5 +1,6 @@
 let CONFIG = require('config');
 
+let logger = require('winston');
 import * as express from "express";
 import * as errors from '../errors';
 import { Game } from './model';
@@ -27,6 +28,7 @@ export class GameController implements IRestController {
         next: express.NextFunction) {
 
         let game = Game.parseFromReq(req);
+        logger.info(game);
 
         let resWithItem = function(inserted: Game) {
             return res.json(inserted);

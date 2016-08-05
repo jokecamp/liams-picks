@@ -58,14 +58,14 @@ export class Game extends BaseModel implements IResult {
         }
 
         this.gameId = row.id;
-        this.when = row.scheduled_at;
+        this.when = row.scheduled_at || null;
         this.roundId = row.round_id;
 
         this.home.team = row.home_team;
-        this.home.score = row.home_score;
+        this.home.score = row.home_score || null;
 
         this.away.team = row.away_team;
-        this.away.score = row.away_score;
+        this.away.score = row.away_score || null;
 
         this.isFinal = row.is_final || false;
         this.roundId = row.round_id || null;
@@ -100,13 +100,18 @@ export class Game extends BaseModel implements IResult {
         }
 
         game.home.team = req.body.home.team;
-        game.home.score = req.body.home.score;
+        game.home.score = req.body.home.score || null;
+
+        if (!req.body.away.team || !req.body.home.team) {
+            logger.info(req.body);
+            throw new Error('missing home and away team prop');
+        }
 
         game.away.team = req.body.away.team;
-        game.away.score = req.body.away.score;
+        game.away.score = req.body.away.score || null;
 
-        game.isFinal = req.body.isFinal;
-        game.when = req.body.when;
+        game.isFinal = req.body.isFinal || false;
+        game.when = req.body.when || null;
         game.roundId = req.body.roundId;
 
         return game;

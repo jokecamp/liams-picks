@@ -71,11 +71,13 @@ var League = (function (_super) {
         var getRounds = model_2.Round.getAllByLeague(id);
         var getGames = model_3.Game.getAllByLeague(id);
         var joinPromises = function (league, users, rounds, games) {
-            league.users = users;
-            league.rounds = rounds;
-            _.each(league.rounds, function (r) {
-                r.games = _.filter(games, { roundId: r.roundId });
-            });
+            if (league) {
+                league.users = users;
+                league.rounds = rounds;
+                _.each(league.rounds, function (r) {
+                    r.games = _.filter(games, { roundId: r.roundId });
+                });
+            }
             return league;
         };
         return Promise.join(getById, getUsers, getRounds, getGames, joinPromises);

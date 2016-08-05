@@ -29,6 +29,8 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^2.5.3",
+    "request": "^2.74.0",
+    "request-promise": "^4.1.0",
     "supertest": "^1.2.0"
   }
 }

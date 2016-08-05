@@ -56,3 +56,7 @@ https://github.com/typings/typings
 Test import
 
     node ./db/import.js
+
+
+    npm install --save-dev request
+    npm install --save-dev request-promise
