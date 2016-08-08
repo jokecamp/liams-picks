@@ -1,12 +1,14 @@
 "use strict";
 var CONFIG = require('config');
 var logger = require('winston');
+var cors = require('cors');
 var bodyParser = require('body-parser');
 var express = require("express");
 var errors = require('./errors');
 logger.info(CONFIG);
 var app = express();
 app.use(bodyParser.json());
+app.use(cors());
 app.use('/', require('./root'));
 app.use('/users', require('./users'));
 app.use('/picks', require('./picks'));

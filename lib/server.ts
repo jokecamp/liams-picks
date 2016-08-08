@@ -1,5 +1,7 @@
 let CONFIG = require('config');
 import * as logger from 'winston';
+
+let cors = require('cors');
 import * as bodyParser from 'body-parser';
 import * as express from "express";
 
@@ -10,6 +12,7 @@ logger.info(CONFIG);
 
 var app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use('/', require('./root'));
 app.use('/users', require('./users'));

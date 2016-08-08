@@ -73,7 +73,8 @@ function createRound(leagueId, i, r) {
     var num = i;
     var round = {
         leagueId: leagueId,
-        number: num
+        number: num,
+        deadline: r[0].deadline_time
     };
 
     return postJson(roundsHref, round).then(function(x) {
