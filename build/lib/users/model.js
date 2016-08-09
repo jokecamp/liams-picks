@@ -5,6 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var _ = require('lodash');
+var shortid = require('shortid');
 var logger = require('winston');
 var base_1 = require('../common-models/base');
 var link_1 = require('../common-models/link');
@@ -17,7 +18,7 @@ var User = (function (_super) {
         this.userId = null;
         this.name = null;
         this.email = null;
-        this.password = '';
+        this.token = '';
     }
     User.prototype.populateFromRow = function (row) {
         if (row === null) {
@@ -26,12 +27,17 @@ var User = (function (_super) {
         this.userId = row.id;
         this.name = row.username;
         this.email = row.email;
+        this.token = row.token;
         _super.prototype.populateFromRow.call(this, row);
         this.addLink(link_1.Link.REL_SELF, [User.ROUTE, this.userId]);
+    };
+    User.prototype.createToken = function () {
+        this.token = shortid.generate().toLowerCase();
     };
     User.prototype.create = function () {
         logger.info('User: create');
         var item = this;
+        item.createToken();
         return storage.insert(item).then(function () {
             return User.getById(item.userId);
         });
@@ -50,7 +56,6 @@ var User = (function (_super) {
         }
         uuser.name = req.body.name;
         uuser.email = req.body.email;
-        uuser.password = req.body.password;
         return uuser;
     };
     User.fromRow = function (row) {

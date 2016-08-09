@@ -13,6 +13,7 @@ export function getRoot(
     root.addLink('rounds', ['rounds']);
     root.addLink('games', ['games']);
     root.addLink('picks', ['picks']);
+    root.addLink('users', ['users']);
 
     return res.json(root);
 };

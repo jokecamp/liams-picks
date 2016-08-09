@@ -1,4 +1,6 @@
 let _ = require('lodash');
+let shortid = require('shortid');
+
 import * as logger from 'winston';
 import * as express from "express";
 import { BaseModel } from '../common-models/base'
@@ -13,14 +15,16 @@ export class User extends BaseModel {
     userId: string;
     name: string;
     email: string;
-    password: string;
+
+    // secret
+    token: string;
 
     constructor() {
         super();
         this.userId = null;
         this.name = null;
         this.email = null;
-        this.password = '';
+        this.token = '';
     }
     populateFromRow(row: UserRow) {
 
@@ -31,15 +35,21 @@ export class User extends BaseModel {
         this.userId = row.id;
         this.name = row.username;
         this.email = row.email;
+        this.token = row.token;
 
         // load the inherited class BaseModel fromRow
         super.populateFromRow(row);
         this.addLink(Link.REL_SELF, [User.ROUTE, this.userId]);
     }
 
+    createToken() {
+        this.token = shortid.generate().toLowerCase();
+    }
+
     create() {
         logger.info('User: create');
         let item: User = this;
+        item.createToken();
         return storage.insert(item).then(function() {
             return User.getById(item.userId);
         });
@@ -63,7 +73,6 @@ export class User extends BaseModel {
 
         uuser.name = req.body.name;
         uuser.email = req.body.email;
-        uuser.password = req.body.password;
         return uuser;
     }
 

@@ -11,7 +11,7 @@ var columns = {
     id: 'id',
     username: 'username',
     email: 'email',
-    password: 'password'
+    token: 'token'
 };
 var UserRow = (function () {
     function UserRow() {
@@ -31,7 +31,7 @@ var UserStorage = (function (_super) {
             .set(columns.id, user.userId)
             .set(columns.username, user.name)
             .set(columns.email, user.email)
-            .set(columns.password, user.password)
+            .set(columns.token, user.token)
             .setFields(this.createdTimestamps())
             .toString();
         logger.info(sql);
@@ -46,6 +46,7 @@ var UserStorage = (function (_super) {
             .table(this.tableName)
             .set(columns.username, user.name)
             .set(columns.email, user.email)
+            .set(columns.token, user.token)
             .setFields(this.udpatedTimestamps())
             .where("id = ?", user.userId)
             .toString();

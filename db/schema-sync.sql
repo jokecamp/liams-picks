@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS users
 (
   id uuid NOT NULL,
   username character varying(100) NOT NULL,
-  password character varying(100) NOT NULL,
+  token character varying(100) NOT NULL,
   email character varying(100) NULL,
   created_at timestamp with time zone NOT NULL,
   updated_at timestamp with time zone NOT NULL,

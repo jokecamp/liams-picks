@@ -8,14 +8,14 @@ let columns = {
     id: 'id',
     username: 'username',
     email: 'email',
-    password: 'password'
+    token: 'token'
 };
 
 export class UserRow {
     id: string;
     username: string;
     email: string;
-    password: string;
+    token: string;
 }
 
 export class UserStorage extends BaseStorage {
@@ -33,7 +33,7 @@ export class UserStorage extends BaseStorage {
             .set(columns.id, user.userId)
             .set(columns.username, user.name)
             .set(columns.email, user.email)
-            .set(columns.password, user.password)
+            .set(columns.token, user.token)
             .setFields(this.createdTimestamps())
             .toString();
 
@@ -51,6 +51,7 @@ export class UserStorage extends BaseStorage {
             .table(this.tableName)
             .set(columns.username, user.name)
             .set(columns.email, user.email)
+            .set(columns.token, user.token)
             .setFields(this.udpatedTimestamps())
             .where("id = ?", user.userId)
             .toString();
