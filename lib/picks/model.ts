@@ -7,6 +7,7 @@ import { IResult } from '../common-models/result';
 
 import { PicksStorage, PickRow } from './storage';
 let storage: PicksStorage = new PicksStorage('picks');
+import { User } from '../users/model';
 
 export class Pick extends BaseModel implements IResult {
 
@@ -14,7 +15,8 @@ export class Pick extends BaseModel implements IResult {
 
     pickId: string;
     gameId: string;
-    userId: string;
+
+    user: User;
 
     home: {
         score: number;
@@ -39,6 +41,7 @@ export class Pick extends BaseModel implements IResult {
         };
         this.isBonus = false;
         this.pointsEarned = null;
+        this.user = new User();
     }
 
     populateFromRow(row: PickRow) {
@@ -48,11 +51,13 @@ export class Pick extends BaseModel implements IResult {
         }
 
         this.pickId = row.id;
-        this.userId = row.user_id;
         this.gameId = row.game_id;
         this.home.score = row.home_score;
         this.away.score = row.away_score;
         this.isBonus = row.is_bonus;
+
+        this.user = new User();
+        this.user.userId = row.user_id;
 
         // load the inherited class BaseModel fromRow
         super.populateFromRow(row);
@@ -84,11 +89,13 @@ export class Pick extends BaseModel implements IResult {
         }
 
         pick.gameId = req.body.gameId;
-        pick.userId = req.body.userId;
         pick.home.score = req.body.home.score;
         pick.away.score = req.body.away.score;
         pick.isBonus = req.body.isBonus;
         pick.pointsEarned = req.body.pointsEarned;
+
+        pick.user.userId = req.body.userId;
+        pick.user.token = req.body.userToken;
 
         return pick;
     }

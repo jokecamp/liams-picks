@@ -28,7 +28,7 @@ var BaseStorage = (function () {
             .where('deleted_at IS NULL')
             .toString();
         logger.info(sql);
-        return db.oneOrNone(sql, [id]);
+        return db.oneOrNone(sql);
     };
     BaseStorage.prototype.getAll = function () {
         var sql = squel.select()

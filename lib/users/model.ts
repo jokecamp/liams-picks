@@ -98,6 +98,11 @@ export class User extends BaseModel {
         return storage.getById(id).then(User.fromRow);
     }
 
+    static getByToken(token: string) {
+        logger.info('User: getByToken', token);
+        return storage.getByToken(token).then(User.fromRow);
+    }
+
     static deleteById(id: string) {
         logger.info('User: deleteById', id);
         return storage.deleteById(id);

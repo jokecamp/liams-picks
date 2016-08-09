@@ -60,4 +60,16 @@ export class UserStorage extends BaseStorage {
         return this.db.none(sql);
     }
 
+    getByToken(token: string) {
+
+        var sql = this.squel.select()
+            .from(this.tableName)
+            .where("token = ?", token)
+            .where('deleted_at IS NULL')
+            .toString();
+
+        logger.info(sql);
+        return this.db.oneOrNone(sql);
+    }
+
 }

@@ -3,5 +3,3 @@ db:
 logger:
     sql: true
 domain: 'http://localhost:1337/'
-bcrypt:
-    factor: 10

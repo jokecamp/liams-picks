@@ -53,6 +53,15 @@ var UserStorage = (function (_super) {
         logger.info(sql);
         return this.db.none(sql);
     };
+    UserStorage.prototype.getByToken = function (token) {
+        var sql = this.squel.select()
+            .from(this.tableName)
+            .where("token = ?", token)
+            .where('deleted_at IS NULL')
+            .toString();
+        logger.info(sql);
+        return this.db.oneOrNone(sql);
+    };
     return UserStorage;
 }(storage_1.BaseStorage));
 exports.UserStorage = UserStorage;

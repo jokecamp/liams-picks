@@ -48,7 +48,7 @@ export abstract class BaseStorage {
             .toString();
 
         logger.info(sql);
-        return db.oneOrNone(sql, [id]);
+        return db.oneOrNone(sql);
     }
 
     getAll() {

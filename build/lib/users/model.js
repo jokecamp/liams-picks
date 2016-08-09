@@ -76,6 +76,10 @@ var User = (function (_super) {
         logger.info('User: getById', id);
         return storage.getById(id).then(User.fromRow);
     };
+    User.getByToken = function (token) {
+        logger.info('User: getByToken', token);
+        return storage.getByToken(token).then(User.fromRow);
+    };
     User.deleteById = function (id) {
         logger.info('User: deleteById', id);
         return storage.deleteById(id);

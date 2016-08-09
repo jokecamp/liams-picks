@@ -1,4 +1,3 @@
-/// <reference path="globals/bcrypt/index.d.ts" />
 /// <reference path="globals/bluebird/index.d.ts" />
 /// <reference path="globals/body-parser/index.d.ts" />
 /// <reference path="globals/chai/index.d.ts" />

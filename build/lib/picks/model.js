@@ -10,6 +10,7 @@ var link_1 = require('../common-models/link');
 var base_1 = require('../common-models/base');
 var storage_1 = require('./storage');
 var storage = new storage_1.PicksStorage('picks');
+var model_1 = require('../users/model');
 var Pick = (function (_super) {
     __extends(Pick, _super);
     function Pick() {
@@ -23,17 +24,19 @@ var Pick = (function (_super) {
         };
         this.isBonus = false;
         this.pointsEarned = null;
+        this.user = new model_1.User();
     }
     Pick.prototype.populateFromRow = function (row) {
         if (row === null) {
             throw new Error('row is null');
         }
         this.pickId = row.id;
-        this.userId = row.user_id;
         this.gameId = row.game_id;
         this.home.score = row.home_score;
         this.away.score = row.away_score;
         this.isBonus = row.is_bonus;
+        this.user = new model_1.User();
+        this.user.userId = row.user_id;
         _super.prototype.populateFromRow.call(this, row);
         this.addLink(link_1.Link.REL_SELF, [Pick.ROUTE, this.pickId]);
     };
@@ -57,11 +60,12 @@ var Pick = (function (_super) {
             pick.pickId = req.params.pickId;
         }
         pick.gameId = req.body.gameId;
-        pick.userId = req.body.userId;
         pick.home.score = req.body.home.score;
         pick.away.score = req.body.away.score;
         pick.isBonus = req.body.isBonus;
         pick.pointsEarned = req.body.pointsEarned;
+        pick.user.userId = req.body.userId;
+        pick.user.token = req.body.userToken;
         return pick;
     };
     Pick.fromRow = function (row) {
