@@ -17,6 +17,7 @@ var User = (function (_super) {
         this.userId = null;
         this.name = null;
         this.email = null;
+        this.password = '';
     }
     User.prototype.populateFromRow = function (row) {
         if (row === null) {
@@ -43,13 +44,14 @@ var User = (function (_super) {
         });
     };
     User.parseFromReq = function (req) {
-        var round = new User();
+        var uuser = new User();
         if (req.params && req.params.userId) {
-            round.userId = req.params.userId;
+            uuser.userId = req.params.userId;
         }
-        round.name = req.body.name;
-        round.email = req.body.email;
-        return round;
+        uuser.name = req.body.name;
+        uuser.email = req.body.email;
+        uuser.password = req.body.password;
+        return uuser;
     };
     User.fromRow = function (row) {
         if (row === null)

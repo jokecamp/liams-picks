@@ -7,13 +7,15 @@ import { BaseStorage } from '../bases/storage';
 let columns = {
     id: 'id',
     username: 'username',
-    email: 'email'
+    email: 'email',
+    password: 'password'
 };
 
 export class UserRow {
     id: string;
     username: string;
     email: string;
+    password: string;
 }
 
 export class UserStorage extends BaseStorage {
@@ -31,6 +33,7 @@ export class UserStorage extends BaseStorage {
             .set(columns.id, user.userId)
             .set(columns.username, user.name)
             .set(columns.email, user.email)
+            .set(columns.password, user.password)
             .setFields(this.createdTimestamps())
             .toString();
 

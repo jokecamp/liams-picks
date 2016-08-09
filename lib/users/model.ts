@@ -13,12 +13,14 @@ export class User extends BaseModel {
     userId: string;
     name: string;
     email: string;
+    password: string;
 
     constructor() {
         super();
         this.userId = null;
         this.name = null;
         this.email = null;
+        this.password = '';
     }
     populateFromRow(row: UserRow) {
 
@@ -53,16 +55,16 @@ export class User extends BaseModel {
 
     /* Statics */
     static parseFromReq(req: express.Request) {
-        let round = new User();
+        let uuser = new User();
 
         if (req.params && req.params.userId) {
-            round.userId = req.params.userId;
+            uuser.userId = req.params.userId;
         }
 
-        round.name = req.body.name;
-        round.email = req.body.email;
-
-        return round;
+        uuser.name = req.body.name;
+        uuser.email = req.body.email;
+        uuser.password = req.body.password;
+        return uuser;
     }
 
     static fromRow(row: UserRow) {

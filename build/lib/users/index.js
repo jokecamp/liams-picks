@@ -1,10 +1,11 @@
 "use strict";
 var express = require('express');
 var controller_1 = require('./controller');
+var passwords_1 = require('../passwords');
 var router = express.Router();
 var controller = new controller_1.UserController();
 router.get('/', controller.getItems);
-router.post('/', controller.postItem);
+router.post('/', passwords_1.expectPasswordAndHash, controller.postItem);
 router.get('/:userId', controller.getItemById);
 router.put('/:userId', controller.putItemById);
 router.delete('/:userId', controller.deleteItemById);

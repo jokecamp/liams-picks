@@ -45,6 +45,9 @@ Manager can define rounds or weeks based on fixture list
     typings install dt~lodash --global --save
     typings install dt~pg-promise --global --save
 
+    typings install dt~bcrypt --global --save
+    typings install dt~bluebird --global --save
+
 
 https://github.com/typings/typings
 

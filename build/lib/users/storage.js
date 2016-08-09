@@ -10,7 +10,8 @@ var storage_1 = require('../bases/storage');
 var columns = {
     id: 'id',
     username: 'username',
-    email: 'email'
+    email: 'email',
+    password: 'password'
 };
 var UserRow = (function () {
     function UserRow() {
@@ -30,6 +31,7 @@ var UserStorage = (function (_super) {
             .set(columns.id, user.userId)
             .set(columns.username, user.name)
             .set(columns.email, user.email)
+            .set(columns.password, user.password)
             .setFields(this.createdTimestamps())
             .toString();
         logger.info(sql);

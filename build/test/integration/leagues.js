@@ -38,7 +38,8 @@ describe('Leagues', function () {
         var item = {
             name: 'John Doe',
             username: 'jdoe',
-            email: 'jdoe@gmail.com'
+            email: 'jdoe@gmail.com',
+            password: 'jdoe@gmail.com'
         };
         request(app)
             .post('/users')
