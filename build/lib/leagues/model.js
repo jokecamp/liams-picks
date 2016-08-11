@@ -64,6 +64,10 @@ var League = (function (_super) {
         logger.info('League: getAll');
         return storage.getAll().then(League.fromRows);
     };
+    League.getUserLeagues = function (userId) {
+        logger.info('League: getUserLeagues');
+        return storage.getUserLeagues(userId).then(League.fromRows);
+    };
     League.getById = function (id) {
         logger.info('League: getById', id);
         var getById = storage.getById(id).then(League.fromRow);

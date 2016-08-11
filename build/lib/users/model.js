@@ -5,10 +5,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var _ = require('lodash');
+var Promise = require('bluebird');
 var shortid = require('shortid');
 var logger = require('winston');
 var base_1 = require('../common-models/base');
 var link_1 = require('../common-models/link');
+var model_1 = require('../leagues/model');
 var storage_1 = require('./storage');
 var storage = new storage_1.UserStorage('users');
 var User = (function (_super) {
@@ -74,7 +76,13 @@ var User = (function (_super) {
     };
     User.getById = function (id) {
         logger.info('User: getById', id);
-        return storage.getById(id).then(User.fromRow);
+        var getById = storage.getById(id).then(User.fromRow);
+        var getLeaguesForUser = model_1.League.getUserLeagues(id);
+        var joinPromises = function (user, leagues) {
+            user.leagues = leagues;
+            return user;
+        };
+        return Promise.join(getById, getLeaguesForUser, joinPromises);
     };
     User.getByToken = function (token) {
         logger.info('User: getByToken', token);

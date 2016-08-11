@@ -86,6 +86,11 @@ export class League extends BaseModel {
         return storage.getAll().then(League.fromRows);
     }
 
+    static getUserLeagues(userId: string) {
+        logger.info('League: getUserLeagues');
+        return storage.getUserLeagues(userId).then(League.fromRows);
+    }
+
     static getById(id: string) {
         logger.info('League: getById', id);
 

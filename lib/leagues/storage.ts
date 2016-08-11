@@ -48,4 +48,10 @@ export class LeagueStorage extends BaseStorage {
 
         return this.db.none(sql);
     }
+
+    getUserLeagues(userId: string) {
+        var sql = 'select le.* from leagues le inner join league_users lu on lu.league_id = le.id where lu.user_id = $1';
+        logger.info(sql);
+        return this.db.query(sql, [userId]);
+    }
 }

@@ -5,6 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var CONFIG = require('config');
+var logger = require('winston');
 var storage_1 = require('../bases/storage');
 var columns = {
     id: 'id',
@@ -39,6 +40,11 @@ var LeagueStorage = (function (_super) {
             .where("id = ?", league.leagueId)
             .toString();
         return this.db.none(sql);
+    };
+    LeagueStorage.prototype.getUserLeagues = function (userId) {
+        var sql = 'select le.* from leagues le inner join league_users lu on lu.league_id = le.id where lu.user_id = $1';
+        logger.info(sql);
+        return this.db.query(sql, [userId]);
     };
     return LeagueStorage;
 }(storage_1.BaseStorage));
