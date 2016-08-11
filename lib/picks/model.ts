@@ -64,12 +64,36 @@ export class Pick extends BaseModel implements IResult {
         this.addLink(Link.REL_SELF, [Pick.ROUTE, this.pickId]);
     }
 
+    // we need to support retreiving a user by id or token
+    getUserByPick() {
+
+        let item = this;
+
+        if (item.user.userId > '') {
+            return User.getById(item.user.userId)
+                .then(function(user: User) {
+                    if (user === null) throw new Error('invalid user id')
+                    item.user = user;
+                });
+        }
+
+        return User.getByToken(item.user.token)
+            .then(function(user: User) {
+                if (user === null) throw new Error('invalid user token')
+                item.user = user;
+            });
+    }
+
     create() {
         logger.info('Pick: create');
         let item: Pick = this;
-        return storage.insert(item).then(function() {
-            return Pick.getById(item.pickId);
-        });
+
+        return item.getUserByPick()
+            .then(function() {
+                return storage.insert(item)
+            }).then(function() {
+                return Pick.getById(item.pickId);
+            });
     }
 
     update() {
@@ -94,8 +118,10 @@ export class Pick extends BaseModel implements IResult {
         pick.isBonus = req.body.isBonus;
         pick.pointsEarned = req.body.pointsEarned;
 
-        pick.user.userId = req.body.userId;
-        pick.user.token = req.body.userToken;
+        if (req.body.user) {
+            pick.user.userId = req.body.user.userId || null;
+            pick.user.token = req.body.user.token || null;
+        }
 
         return pick;
     }

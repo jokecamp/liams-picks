@@ -15,8 +15,6 @@ export class User extends BaseModel {
     userId: string;
     name: string;
     email: string;
-
-    // secret
     token: string;
 
     constructor() {
@@ -26,6 +24,7 @@ export class User extends BaseModel {
         this.email = null;
         this.token = '';
     }
+
     populateFromRow(row: UserRow) {
 
         if (row === null) {

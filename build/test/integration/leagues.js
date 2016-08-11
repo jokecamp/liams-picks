@@ -59,7 +59,7 @@ describe('Leagues', function () {
     });
     it('Create League - POST League', function (done) {
         var item = {
-            name: 'Mock League'
+            name: 'Mock League',
         };
         request(app)
             .post('/leagues')
@@ -213,9 +213,44 @@ describe('Leagues', function () {
             done();
         });
     });
-    it('Create Pick - POST Pick', function (done) {
+    it('Create Pick by user id- POST Pick', function (done) {
         var item = {
-            userId: user.userId,
+            user: {
+                userId: user.userId
+            },
+            gameId: game.gameId,
+            home: {
+                score: 2
+            },
+            away: {
+                score: 1
+            },
+            isFinal: true
+        };
+        console.log(item);
+        request(app)
+            .post('/picks')
+            .set('Accept', 'application/json')
+            .expect(200)
+            .send(item)
+            .end(function (err, res) {
+            pick = res.body;
+            console.log(pick);
+            pickHref = pick.links[0].href;
+            assert.equal(3, game.home.score);
+            assert.equal(0, game.away.score);
+            if (err) {
+                logger.error(res.body);
+                return done(err);
+            }
+            done();
+        });
+    });
+    it('Create Pick by user token - POST Pick', function (done) {
+        var item = {
+            user: {
+                token: user.token
+            },
             gameId: game.gameId,
             home: {
                 score: 2

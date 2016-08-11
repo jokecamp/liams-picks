@@ -40,10 +40,30 @@ var Pick = (function (_super) {
         _super.prototype.populateFromRow.call(this, row);
         this.addLink(link_1.Link.REL_SELF, [Pick.ROUTE, this.pickId]);
     };
+    Pick.prototype.getUserByPick = function () {
+        var item = this;
+        if (item.user.userId > '') {
+            return model_1.User.getById(item.user.userId)
+                .then(function (user) {
+                if (user === null)
+                    throw new Error('invalid user id');
+                item.user = user;
+            });
+        }
+        return model_1.User.getByToken(item.user.token)
+            .then(function (user) {
+            if (user === null)
+                throw new Error('invalid user token');
+            item.user = user;
+        });
+    };
     Pick.prototype.create = function () {
         logger.info('Pick: create');
         var item = this;
-        return storage.insert(item).then(function () {
+        return item.getUserByPick()
+            .then(function () {
+            return storage.insert(item);
+        }).then(function () {
             return Pick.getById(item.pickId);
         });
     };
@@ -64,8 +84,10 @@ var Pick = (function (_super) {
         pick.away.score = req.body.away.score;
         pick.isBonus = req.body.isBonus;
         pick.pointsEarned = req.body.pointsEarned;
-        pick.user.userId = req.body.userId;
-        pick.user.token = req.body.userToken;
+        if (req.body.user) {
+            pick.user.userId = req.body.user.userId || null;
+            pick.user.token = req.body.user.token || null;
+        }
         return pick;
     };
     Pick.fromRow = function (row) {
